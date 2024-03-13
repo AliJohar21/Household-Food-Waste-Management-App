@@ -3,7 +3,7 @@ import 'package:phase_2_implementation/log_in/log_in.dart';
 import 'package:phase_2_implementation/sign_up/sign_up.dart';
 
 class Welcome extends StatelessWidget {
-  const Welcome({super.key});
+  const Welcome({Key? key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +22,22 @@ class Welcome extends StatelessWidget {
             color: Colors.black.withOpacity(0.5),
             width: double.infinity,
             height: double.infinity,
+          ),
+          // Logo of the app
+          Positioned(
+            top: 100, // Adjust top position as needed
+            left: 0,
+            right: 0,
+            child: Container(
+              padding: EdgeInsets.all(20),
+              alignment: Alignment.center,
+              child: Image.asset(
+                'assets/FoodMinder.png', // Replace with your logo asset
+                width: 400, // Fixed width of the logo
+                height: 250, // Fixed height of the logo
+                fit: BoxFit.contain,
+              ),
+            ),
           ),
           Center(
             child: Column(
