@@ -1,116 +1,106 @@
 import 'package:flutter/material.dart';
+import 'package:phase_2_implementation/forget_password/forget_password.dart';
 import 'package:phase_2_implementation/sign_up/sign_up.dart';
 
-class LogIn extends StatefulWidget {
-  const LogIn({Key? key}) : super(key: key);
-
-  @override
-  State<LogIn> createState() => _LogInPageState();
-}
-
-class _LogInPageState extends State<LogIn> {
-  var hideText = true;
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
+class LogIn extends StatelessWidget {
+  const LogIn({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          // Background image
-          Container(
-            width: double.infinity,
-            height: double.infinity,
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage(
-                    'assets/b_g.png'), // Path to your background image
-                fit: BoxFit.cover, // Adjust the fit as per your requirement
-              ),
-            ),
-          ),
-          // Login UI
-          Center(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 20,
-              ),
-              child: SizedBox(
-                height: 400,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    const Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        "Log In",
-                        style: TextStyle(
-                          fontSize: 30,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    TextField(
-                      controller: emailController,
-                      decoration: const InputDecoration(
-                        labelText: "E-Mail",
-                        border: OutlineInputBorder(),
-                      ),
-                    ),
-                    TextField(
-                      controller: passwordController,
-                      obscureText: hideText,
-                      decoration: InputDecoration(
-                        suffixIcon: IconButton(
-                          onPressed: () {
-                            setState(() {
-                              hideText = !hideText;
-                            });
-                          },
-                          icon: hideText
-                              ? const Icon(Icons.visibility_off)
-                              : const Icon(Icons.visibility),
-                        ),
-                        labelText: "Password",
-                        border: const OutlineInputBorder(),
-                      ),
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
-                        // Handle login
-                      },
-                      child: const Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 40, vertical: 12),
-                        child: Text("LOG IN"),
-                      ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text("Don't have an account?"),
-                        const SizedBox(width: 8),
-                        TextButton(
-                          onPressed: () {
-                            // Navigate to sign up screen
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const SignUp()),
-                            );
-                          },
-                          child: const Text("Sign Up"),
-                        ),
-                      ],
-                    ),
-                  ],
+        body: Container(
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage(
+              'assets/b_g.png'), // Replace with your actual asset path
+          fit: BoxFit.cover,
+        ),
+      ),
+      child: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              const Text(
+                'FOODMINDER',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 32.0,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-            ),
+              const SizedBox(height: 8.0),
+              const Text(
+                'HouseHold waste management app',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 16.0,
+                ),
+              ),
+              const SizedBox(height: 48.0),
+              const TextField(
+                keyboardType: TextInputType.emailAddress,
+                decoration: InputDecoration(
+                  labelText: 'Email or Phone',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              const SizedBox(height: 8.0),
+              const TextField(
+                obscureText: true,
+                decoration: InputDecoration(
+                  labelText: 'Password',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              const SizedBox(height: 24.0),
+              ElevatedButton(
+                onPressed: () {
+                  // Implement login functionality
+                },
+                style: ElevatedButton.styleFrom(
+                  foregroundColor: Colors.white,
+                  backgroundColor: Colors.purple, // text color
+                ),
+                child: const Text('Login'),
+              ),
+              TextButton(
+                onPressed: () {
+                  // Implement UAE PASS login functionality
+                },
+                style: TextButton.styleFrom(
+                  foregroundColor: Colors.purple, // text color
+                ),
+                child: const Text('UAE PASS'),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const ResetPassword(),
+                  ));
+                },
+                style: TextButton.styleFrom(
+                  foregroundColor: Colors.black54, // text color
+                ),
+                child: const Text('forgot password?'),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const SignUp(),
+                  ));
+                },
+                style: TextButton.styleFrom(
+                  foregroundColor: Colors.black54, // text color
+                ),
+                child: const Text('Sign Up'),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
-    );
+    ));
   }
 }

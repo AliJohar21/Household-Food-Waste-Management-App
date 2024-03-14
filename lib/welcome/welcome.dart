@@ -1,92 +1,66 @@
 import 'package:flutter/material.dart';
-import 'package:phase_2_implementation/log_in/log_in.dart';
-import 'package:phase_2_implementation/sign_up/sign_up.dart';
 
 class Welcome extends StatelessWidget {
-  const Welcome({Key? key});
+  const Welcome({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          // Background image
-          Image.asset(
-            'assets/food.jpg',
-            fit: BoxFit.cover,
-            width: double.infinity,
-            height: double.infinity,
-          ),
-          // Overlay with blur effect
-          Container(
-            color: Colors.black.withOpacity(0.5),
-            width: double.infinity,
-            height: double.infinity,
-          ),
-          // Logo of the app
-          Positioned(
-            top: 100, // Adjust top position as needed
-            left: 0,
-            right: 0,
-            child: Container(
-              padding: EdgeInsets.all(20),
-              alignment: Alignment.center,
-              child: Image.asset(
-                'assets/FoodMinder.png', // Replace with your logo asset
-                width: 400, // Fixed width of the logo
-                height: 250, // Fixed height of the logo
-                fit: BoxFit.contain,
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 80.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            const Text(
+              'Welcome',
+              style: TextStyle(
+                fontSize: 32.0,
+                fontWeight: FontWeight.bold,
               ),
             ),
-          ),
-          Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                const Text(
-                  'Welcome to FoodMinder',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 28.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  textAlign: TextAlign.center,
+            const Text(
+              'Mohammed',
+              style: TextStyle(
+                fontSize: 24.0,
+                fontWeight: FontWeight.w400,
+              ),
+            ),
+            const SizedBox(height: 50), // Adjust the size as needed
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Image.asset(
+                  'assets/HomePage.png', // Replace with your asset image path
+                  width: 150, // Adjust the size as needed
+                  height: 150, // Adjust the size as needed
                 ),
-                const SizedBox(height: 50),
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const SignUp()),
-                    );
-                  },
-                  style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 40, vertical: 15),
-                    textStyle: const TextStyle(fontSize: 20),
-                  ),
-                  child: const Text('Sign Up'),
-                ),
-                const SizedBox(height: 20),
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const LogIn()),
-                    );
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white,
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 40, vertical: 15),
-                    textStyle: const TextStyle(fontSize: 20),
-                  ),
-                  child: const Text('Log In'),
+                const SizedBox(
+                    width: 20), // Adjust the space between image and text
+                const Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'ABOUT',
+                      style: TextStyle(
+                        fontSize: 24.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(height: 10), // Adjust the size as needed
+                    Text(
+                      'Our aim is to reduce food waste, and ensure that food is either consumed in the right way or donated to competent authorities.',
+                      style: TextStyle(
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

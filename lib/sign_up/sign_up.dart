@@ -92,7 +92,7 @@ class _LogInState extends State<SignUp> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const LogIn()),
+                              builder: (context) => LogIn()),
                         );
                       },
                       child: const Padding(

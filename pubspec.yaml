@@ -56,6 +56,7 @@ flutter:
     - assets/b_g.png
     - assets/food.jpg
     - assets/FoodMinder.png
+    - assets/HomePage.png
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
