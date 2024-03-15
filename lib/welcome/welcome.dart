@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:phase_2_implementation/sign_up/sign_up.dart';
 import 'package:phase_2_implementation/log_in/log_in.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Welcome extends StatelessWidget {
   const Welcome({super.key});
@@ -14,20 +15,27 @@ class Welcome extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            const SizedBox(height: 100),
+            const SizedBox(height: 75),
             const Align(
               alignment: Alignment.topLeft,
               child: Text(
                 'Welcome',
-                style: TextStyle(fontSize: 32.0, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  fontSize: 32.0,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
-            const SizedBox(height: 150),
-            Center(
-              child: Image.asset(
-                  'assets/HomePage1.png'), // Replace with your asset image path
-            ),
             const SizedBox(height: 100),
+            Center(
+              child: InkWell(onTap: () {
+                launchUrl(Uri.parse('https://flutter.dev'));
+              },
+                child: Image.asset(
+                    'assets/HomePage1.png'),
+              ), // Replace with your asset image path
+            ),
+            const SizedBox(height: 50),
             const Align(
               alignment: Alignment.topLeft,
               child: Text(
@@ -39,11 +47,12 @@ class Welcome extends StatelessWidget {
               'Our aim is to reduce food waste, and ensure that food is either consumed in the right way or donated to competent authorities.',
               style: TextStyle(fontSize: 16.0, color: Colors.grey[600]),
             ),
-            const SizedBox(height: 40),
+            const SizedBox(height: 50),
             Row(
-              //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Expanded(
+                  //flex: 2,
                   child: ElevatedButton(
                     onPressed: () {
                       Navigator.of(context).push(MaterialPageRoute(
@@ -52,7 +61,7 @@ class Welcome extends StatelessWidget {
                     },
                     style: ElevatedButton.styleFrom(
                       foregroundColor: Colors.white,
-                      backgroundColor: Colors.purple, // Button text color
+                      backgroundColor: Colors.deepPurple, // Button text color
                     ),
                     child: const Text('Sign Up'),
                   ),
@@ -68,9 +77,9 @@ class Welcome extends StatelessWidget {
                       );
                     },
                     style: OutlinedButton.styleFrom(
-                      foregroundColor: Colors.purple,
+                      foregroundColor: Colors.deepPurple,
                       side: const BorderSide(
-                          color: Colors.purple), // Border color
+                          color: Colors.deepPurple), // Border color
                     ),
                     child: const Text('Login'),
                   ),
@@ -95,7 +104,7 @@ class Welcome extends StatelessWidget {
             label: 'Settings',
           ),
         ],
-        backgroundColor: Colors.purple,
+        backgroundColor: Colors.deepPurple,
         selectedItemColor: Colors.white,
         unselectedItemColor: Colors.white70,
       ),

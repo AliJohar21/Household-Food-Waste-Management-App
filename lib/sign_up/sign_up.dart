@@ -92,9 +92,13 @@ class _LogInState extends State<SignUp> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => LogIn()),
+                              builder: (context) => const LogIn()),
                         );
                       },
+                      style: ElevatedButton.styleFrom(
+                        foregroundColor: Colors.white,
+                        backgroundColor: Colors.deepPurple, // text color
+                      ),
                       child: const Padding(
                         padding:
                             EdgeInsets.symmetric(horizontal: 40, vertical: 12),

@@ -47,7 +47,7 @@ class LogIn extends StatelessWidget {
                   border: OutlineInputBorder(),
                 ),
               ),
-              const SizedBox(height: 8.0),
+              const SizedBox(height: 15.0),
               const TextField(
                 obscureText: true,
                 decoration: InputDecoration(
@@ -62,16 +62,17 @@ class LogIn extends StatelessWidget {
                 },
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.white,
-                  backgroundColor: Colors.purple, // text color
+                  backgroundColor: Colors.deepPurple, // text color
                 ),
                 child: const Text('Login'),
               ),
+              const SizedBox(height: 25.0),
               TextButton(
                 onPressed: () {
                   // Implement UAE PASS login functionality
                 },
                 style: TextButton.styleFrom(
-                  foregroundColor: Colors.purple, // text color
+                  foregroundColor: Colors.deepPurple, // text color
                 ),
                 child: const Text('UAE PASS'),
               ),
