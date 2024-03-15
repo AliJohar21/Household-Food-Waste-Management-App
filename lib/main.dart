@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:phase_2_implementation/welcome/welcome.dart';
-//import 'package:phase_2_implementation/log_in/log_in.dart';
 
 void main() {
   runApp(const FoodMinder());

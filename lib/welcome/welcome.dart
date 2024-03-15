@@ -14,7 +14,7 @@ class Welcome extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 60.0, horizontal: 24.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
+          children:[
             const SizedBox(height: 75),
             const Align(
               alignment: Alignment.topLeft,
