@@ -55,9 +55,7 @@ dev_dependencies:
 flutter:
   assets:
     - assets/b_g.png
-    - assets/food.jpg
     - assets/FoodMinder.png
-    - assets/HomePage.png
     - assets/HomePage1.png
     - assets/mobile-password-forgot.png
     
