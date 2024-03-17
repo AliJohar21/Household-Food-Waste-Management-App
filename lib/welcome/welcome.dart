@@ -106,7 +106,6 @@ class Welcome extends StatelessWidget {
         ],
         backgroundColor: Colors.deepPurple,
         selectedItemColor: Colors.white,
-        unselectedItemColor: Colors.white70,
       ),
     );
   }
