@@ -60,6 +60,12 @@ flutter:
     - assets/HomePage.png
     - assets/HomePage1.png
     - assets/mobile-password-forgot.png
+  fonts:
+    - family: SourceCodePro
+      fonts:
+        - asset: assets/fonts/SourceCodePro-Regular.ttf
+        # Assuming 400 is the weight for the regular font, no need to specify it as it's default
+
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.

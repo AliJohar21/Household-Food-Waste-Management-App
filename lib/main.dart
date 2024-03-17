@@ -15,6 +15,7 @@ class FoodMinder extends StatelessWidget {
       home: const Welcome(),
       title: 'Flutter Demo',
       theme: ThemeData(
+        fontFamily: 'SourceCodePro',
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
