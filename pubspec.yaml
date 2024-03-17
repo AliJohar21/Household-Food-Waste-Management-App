@@ -60,6 +60,7 @@ flutter:
     - assets/HomePage.png
     - assets/HomePage1.png
     - assets/mobile-password-forgot.png
+    
   fonts:
     - family: SourceCodePro
       fonts:
