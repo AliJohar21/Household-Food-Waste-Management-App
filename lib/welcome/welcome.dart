@@ -89,7 +89,7 @@ class Welcome extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
+      /*bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
@@ -106,7 +106,7 @@ class Welcome extends StatelessWidget {
         ],
         backgroundColor: Colors.deepPurple,
         selectedItemColor: Colors.white,
-      ),
+      ),*/
     );
   }
 }
