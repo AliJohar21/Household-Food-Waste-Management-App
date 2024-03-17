@@ -7,7 +7,6 @@ class ResetPassword extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Reset Password'),
         leading: BackButton(
           onPressed: () {
             Navigator.maybePop(context);
@@ -30,7 +29,10 @@ class ResetPassword extends StatelessWidget {
                 const SizedBox(height: 50.0),
                 const Text(
                   'Reset password',
-                  style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                      fontSize: 24.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.deepPurple),
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 20.0),

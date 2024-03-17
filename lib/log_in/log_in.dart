@@ -48,6 +48,8 @@ class _LogInState extends State<LogIn> {
                       style: TextStyle(
                         fontSize: 32.0,
                         fontWeight: FontWeight.bold,
+                        color: Colors
+                            .deepPurple, // This line applies the deep purple color
                       ),
                     ),
                     const SizedBox(height: 8.0),

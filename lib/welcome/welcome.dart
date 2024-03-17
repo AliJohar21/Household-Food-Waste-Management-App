@@ -47,7 +47,7 @@ class Welcome extends StatelessWidget {
               'Our aim is to reduce food waste, and ensure that food is either consumed in the right way or donated to competent authorities.',
               style: TextStyle(fontSize: 16.0, color: Colors.grey[600]),
             ),
-            const SizedBox(height: 50),
+            const SizedBox(height: 75),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
