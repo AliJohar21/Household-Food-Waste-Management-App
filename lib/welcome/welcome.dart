@@ -14,7 +14,7 @@ class Welcome extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 60.0, horizontal: 24.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children:[
+          children: [
             const SizedBox(height: 75),
             const Align(
               alignment: Alignment.topLeft,
@@ -28,11 +28,11 @@ class Welcome extends StatelessWidget {
             ),
             const SizedBox(height: 100),
             Center(
-              child: InkWell(onTap: () {
-                launchUrl(Uri.parse('https://flutter.dev'));
-              },
-                child: Image.asset(
-                    'assets/HomePage1.png'),
+              child: InkWell(
+                onTap: () {
+                  launchUrl(Uri.parse('https://flutter.dev'));
+                },
+                child: Image.asset('assets/HomePage1.png'),
               ), // Replace with your asset image path
             ),
             const SizedBox(height: 50),
