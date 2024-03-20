@@ -5,6 +5,7 @@ class SignUp extends StatefulWidget {
   const SignUp({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _SignUpState createState() => _SignUpState();
 }
 
