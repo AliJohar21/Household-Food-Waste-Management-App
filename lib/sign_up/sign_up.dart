@@ -43,7 +43,22 @@ class _SignUpState extends State<SignUp> {
                   key: _formKey,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
+                      const SizedBox(height: 50.0),
+                      Image.asset(
+                        'assets/FOODMINDER.png', // Make sure the path is correct
+                        width: 200, // Adjust the width as needed
+                        height: 100, // Adjust the height as needed
+                      ),
+                      const SizedBox(height: 8.0),
+                      const Text(
+                        'HouseHold waste management app',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 16.0,
+                        ),
+                      ),
                       const SizedBox(height: 20), // Space above "Sign Up" text
                       const Text(
                         "Sign Up",
@@ -145,7 +160,12 @@ class _SignUpState extends State<SignUp> {
                           backgroundColor: Colors.deepPurple,
                           minimumSize: const Size(150, 40),
                         ),
-                        child: const Text("SIGN UP"),
+                        child: const Text(
+                          "SIGN UP",
+                          style: TextStyle(
+                            fontSize: 18.0,
+                          ),
+                        ),
                       ),
                       const SizedBox(
                           height: 20), // Space after "SIGN UP" button

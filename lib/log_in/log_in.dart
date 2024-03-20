@@ -92,7 +92,12 @@ class _LogInState extends State<LogIn> {
                         backgroundColor: const Color.fromRGBO(
                             103, 58, 183, 1), // Adjust as needed
                       ),
-                      child: const Text('Login'),
+                      child: const Text(
+                        'Login',
+                        style: TextStyle(
+                          fontSize: 18.0,
+                        ),
+                      ),
                     ),
                     const SizedBox(height: 25.0),
                     TextButton(
