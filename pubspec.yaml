@@ -58,6 +58,7 @@ flutter:
     - assets/FoodMinder.png
     - assets/HomePage1.png
     - assets/mobile-password-forgot.png
+    - assets/FOODMINDER.png
     
   fonts:
     - family: SourceCodePro

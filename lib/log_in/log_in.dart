@@ -28,8 +28,8 @@ class _LogInState extends State<LogIn> {
           child: Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage(
-                    'assets/b_g.png'), // Update with your actual asset path
+                image:
+                    AssetImage('assets/b_g.png'), // Ensure this path is correct
                 fit: BoxFit.cover,
               ),
             ),
@@ -40,15 +40,10 @@ class _LogInState extends State<LogIn> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
-                    const Text(
-                      'FOODMINDER',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 32.0,
-                        fontWeight: FontWeight.bold,
-                        color: Colors
-                            .deepPurple, // This line applies the deep purple color
-                      ),
+                    Image.asset(
+                      'assets/FOODMINDER.png', // Ensure this path is correct
+                      width: 200, // Adjust the width as needed
+                      height: 100, // Adjust the height as needed
                     ),
                     const SizedBox(height: 8.0),
                     const Text(
@@ -94,17 +89,18 @@ class _LogInState extends State<LogIn> {
                       },
                       style: ElevatedButton.styleFrom(
                         foregroundColor: Colors.white,
-                        backgroundColor: Colors.deepPurple, // text color
+                        backgroundColor: const Color.fromRGBO(
+                            103, 58, 183, 1), // Adjust as needed
                       ),
                       child: const Text('Login'),
                     ),
                     const SizedBox(height: 25.0),
                     TextButton(
                       onPressed: () {
-                        // Implement UAE PASS login functionality
+                        // Implement additional functionality as needed
                       },
                       style: TextButton.styleFrom(
-                        foregroundColor: Colors.deepPurple, // text color
+                        foregroundColor: Colors.deepPurple, // Adjust as needed
                       ),
                       child: const Text('UAE PASS'),
                     ),
@@ -115,7 +111,7 @@ class _LogInState extends State<LogIn> {
                         ));
                       },
                       style: TextButton.styleFrom(
-                        foregroundColor: Colors.black54, // text color
+                        foregroundColor: Colors.black54,
                       ),
                       child: const Text('forgot password?'),
                     ),
@@ -126,7 +122,7 @@ class _LogInState extends State<LogIn> {
                         ));
                       },
                       style: TextButton.styleFrom(
-                        foregroundColor: Colors.black54, // text color
+                        foregroundColor: Colors.black54,
                       ),
                       child: const Text('Sign Up'),
                     ),
