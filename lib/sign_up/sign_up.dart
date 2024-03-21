@@ -5,6 +5,7 @@ class SignUp extends StatefulWidget {
   const SignUp({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _SignUpState createState() => _SignUpState();
 }
 
@@ -50,7 +51,7 @@ class _SignUpState extends State<SignUp> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          const SizedBox(height: 120.0),
+                          const SizedBox(height: 115.0),
                           Image.asset(
                             'assets/FOODMINDER.png', // Make sure the path is correct
                             width: 200, // Adjust the width as needed
