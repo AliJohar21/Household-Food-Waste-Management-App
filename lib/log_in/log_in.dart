@@ -41,7 +41,7 @@ class _LogInState extends State<LogIn> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
-                    const SizedBox(height: 50.0),
+                    const SizedBox(height: 100.0),
                     Image.asset(
                       'assets/FOODMINDER.png', // Ensure this path is correct
                       width: 200, // Adjust the width as needed
