@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:phase_2_implementation/forget_password/forget_password.dart';
+import 'package:phase_2_implementation/main_screenF/main_navigation.dart';
 import 'package:phase_2_implementation/sign_up/sign_up.dart';
 
 class LogIn extends StatefulWidget {
@@ -86,9 +87,10 @@ class _LogInState extends State<LogIn> {
                     ),
                     const SizedBox(height: 24.0),
                     ElevatedButton(
-                      onPressed: () {
-                        // Implement login functionality
-                      },
+                      onPressed: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const MainNavigation())),
                       style: ElevatedButton.styleFrom(
                         foregroundColor: Colors.white,
                         backgroundColor: const Color.fromRGBO(
