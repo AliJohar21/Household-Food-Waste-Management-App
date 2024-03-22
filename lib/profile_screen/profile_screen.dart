@@ -7,6 +7,7 @@ import 'package:phase_2_implementation/constantns/app_colors.dart';
 import 'package:phase_2_implementation/controller/cart_controller.dart';
 import 'package:phase_2_implementation/controller/main_controller.dart';
 import 'package:phase_2_implementation/home_screen/home_screen.dart';
+import 'package:phase_2_implementation/main_screenF/main_navigation.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -269,10 +270,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
             unselectedFontSize: 0,
             iconSize: 30,
             onTap: (index) {
-              Get.lazyPut(() => MainController());
-              Get.find<MainController>().currentIndex = index;
-              Get.find<MainController>().update();
-              Get.to(const HomeScreen());
+              MainNavigation.of(context)?.setIndex(index);
+              // Get.lazyPut(() => MainController());
+              // Get.find<MainController>().currentIndex = index;
+              // Get.find<MainController>().update();
+              // Get.to(const HomeScreen());
             },
           ),
         ),
