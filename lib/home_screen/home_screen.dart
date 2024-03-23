@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:phase_2_implementation/constantns/app_colors.dart';
 import 'package:get/get.dart';
+import 'package:phase_2_implementation/donate_screen/donate_screen.dart';
 import 'package:phase_2_implementation/main_screenF/main_navigation.dart';
 import 'package:phase_2_implementation/payment/payment.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -153,13 +154,13 @@ class HomeScreen extends StatelessWidget {
                         top: 20, left: Get.width * .25, right: Get.width * .18),
                     child: InkWell(
                       onTap: () {
-                        Get.to(const PaymentMethodPage());
+                        Get.to(const DonateScreen());
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "Donate Money",
+                            "Donate",
                             style: Get.theme.textTheme.displaySmall?.copyWith(
                               fontSize: 31,
                             ),

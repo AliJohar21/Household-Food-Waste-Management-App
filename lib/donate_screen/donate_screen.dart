@@ -30,13 +30,13 @@ class DonateScreen extends StatelessWidget {
                       child: Stack(
                         children: [
                           const DonationOption(
-                            label: 'food',
+                            label: 'Food',
                             icon: Icons.attach_money,
                           ),
                           Align(
                               alignment: Alignment.bottomCenter,
                               child: Image.asset(
-                                "images/Picsart_24-03-19_00-23-24-161.png",
+                                "assets/Picsart_24-03-19_00-23-24-161.png",
                                 height: 100,
                               )),
                         ],
@@ -52,15 +52,15 @@ class DonateScreen extends StatelessWidget {
                         children: [
                           const DonationOption(
                             color: Colors.deepPurple,
-                            label: 'mone',
+                            label: 'Money',
                             fontColor: Colors.white,
                             icon: Icons.attach_money,
                           ),
                           Align(
                               alignment: Alignment.bottomRight,
                               child: Image.asset(
-                                "images/Picsart_24-03-19_01-27-05-307.png",
-                                height: 110,
+                                "assets/Picsart_24-03-19_01-27-05-307.png",
+                                height: 100,
                               )),
                         ],
                       ),
@@ -118,8 +118,6 @@ class DonateScreen extends StatelessWidget {
     );
   }
 }
-
-
 
 class DonationOption extends StatelessWidget {
   final String label;
