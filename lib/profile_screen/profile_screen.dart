@@ -5,8 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:phase_2_implementation/constantns/app_colors.dart';
 import 'package:phase_2_implementation/controller/cart_controller.dart';
-import 'package:phase_2_implementation/controller/main_controller.dart';
-import 'package:phase_2_implementation/home_screen/home_screen.dart';
 import 'package:phase_2_implementation/main_screenF/main_navigation.dart';
 
 class ProfileScreen extends StatefulWidget {
