@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:phase_2_implementation/log_in/log_in.dart';
 
@@ -20,6 +21,8 @@ class _SignUpState extends State<SignUp> {
 
   bool isEmail(String input) =>
       RegExp(r'\b[\w\.-]+@[\w\.-]+\.\w{2,4}\b').hasMatch(input);
+
+  var errorText = "";
 
   @override
   Widget build(BuildContext context) {
@@ -126,41 +129,47 @@ class _SignUpState extends State<SignUp> {
                               return null;
                             },
                           ),
-                          /*const SizedBox(height: 20),
-                          TextFormField(
-                            controller: confirmPasswordController,
-                            obscureText: hideConfirmPassword,
-                            decoration: InputDecoration(
-                              suffixIcon: IconButton(
-                                onPressed: () => setState(() =>
-                                    hideConfirmPassword = !hideConfirmPassword),
-                                icon: Icon(hideConfirmPassword
-                                    ? Icons.visibility_off
-                                    : Icons.visibility),
-                              ),
-                              labelText: "Confirm Password",
-                              border: const OutlineInputBorder(),
+                          const SizedBox(height: 10.0),
+                          Text(
+                            errorText,
+                            style: const TextStyle(
+                              color: Colors.red,
                             ),
-                            validator: (value) {
-                              if (value != passwordController.text) {
-                                return 'Passwords do not match';
-                              }
-                              return null;
-                            },
-                          ),*/
+                          ),
                           const SizedBox(
                               height: 10), // Space before the "SIGN UP" button
                           ElevatedButton(
-                            onPressed: () {
-                              if (_formKey.currentState!.validate()) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                      content: Text('Processing Data')),
-                                );
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => const LogIn()));
+                            onPressed: () async {
+                              try {
+                                if (_formKey.currentState!.validate()) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                        content: Text('Processing Data')),
+                                  );
+
+                                  var singUpResult = await FirebaseAuth.instance
+                                      .createUserWithEmailAndPassword(
+                                    email: emailController.text,
+                                    password: passwordController.text,
+                                  );
+                                  await singUpResult.user
+                                      ?.updateDisplayName(nameController.text);
+
+                                  if (singUpResult.user != null) {
+                                    Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => const LogIn(),
+                                      ),
+                                    );
+                                  }
+                                }
+                              } on FirebaseAuthException catch (e, s) {
+                                setState(() {
+                                  errorText = e.message ?? "Sing Up FAilED!!!";
+                                });
+                                print(e);
+                                print(s);
                               }
                             },
                             style: ElevatedButton.styleFrom(
@@ -182,10 +191,11 @@ class _SignUpState extends State<SignUp> {
                             children: [
                               const Text("Already Have an account?"),
                               TextButton(
-                                onPressed: () => Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => const LogIn())),
+                                onPressed: () => Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => const LogIn()),
+                                ),
                                 child: const Text("Login"),
                               ),
                             ],

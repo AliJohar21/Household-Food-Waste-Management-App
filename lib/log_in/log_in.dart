@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:phase_2_implementation/forget_password/forget_password.dart';
 import 'package:phase_2_implementation/main_screenF/main_navigation.dart';
@@ -12,8 +13,11 @@ class LogIn extends StatefulWidget {
 }
 
 class _LogInState extends State<LogIn> {
+  final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   bool _isPasswordVisible = false;
+
+  var errorText = "";
 
   @override
   Widget build(BuildContext context) {
@@ -57,10 +61,11 @@ class _LogInState extends State<LogIn> {
                       ),
                     ),
                     const SizedBox(height: 48.0),
-                    const TextField(
+                    TextField(
+                      controller: _emailController,
                       keyboardType: TextInputType.emailAddress,
-                      decoration: InputDecoration(
-                        labelText: 'Email or Phone',
+                      decoration: const InputDecoration(
+                        labelText: 'Email',
                         border: OutlineInputBorder(),
                       ),
                     ),
@@ -85,12 +90,40 @@ class _LogInState extends State<LogIn> {
                         ),
                       ),
                     ),
+                    const SizedBox(height: 10.0),
+                    Text(
+                      errorText,
+                      style: const TextStyle(
+                        color: Colors.red,
+                      ),
+                    ),
                     const SizedBox(height: 24.0),
                     ElevatedButton(
-                      onPressed: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const MainNavigation())),
+                      onPressed: () async {
+                        try {
+                          var loginResult = await FirebaseAuth.instance
+                              .signInWithEmailAndPassword(
+                            email: _emailController.text,
+                            password: _passwordController.text,
+                          );
+
+                          if (loginResult.user != null) {
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const MainNavigation(),
+                              ),
+                            );
+                          }
+                          // else {loginResult.}
+                        } on FirebaseAuthException catch (e, s) {
+                          setState(() {
+                            errorText = e.message ?? "Sing Up FAilED!!!";
+                          });
+                          print(e);
+                          print(s);
+                        }
+                      },
                       style: ElevatedButton.styleFrom(
                         foregroundColor: Colors.white,
                         backgroundColor: const Color.fromRGBO(
@@ -104,20 +137,22 @@ class _LogInState extends State<LogIn> {
                       ),
                     ),
                     const SizedBox(height: 25.0),
+                    // TextButton(
+                    //   onPressed: () {
+                    //     // Implement additional functionality as needed
+                    //   },
+                    //   style: TextButton.styleFrom(
+                    //     foregroundColor: Colors.deepPurple, // Adjust as needed
+                    //   ),
+                    //   child: const Text('UAE PASS'),
+                    // ),
                     TextButton(
                       onPressed: () {
-                        // Implement additional functionality as needed
-                      },
-                      style: TextButton.styleFrom(
-                        foregroundColor: Colors.deepPurple, // Adjust as needed
-                      ),
-                      child: const Text('UAE PASS'),
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const ResetPassword(),
-                        ));
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const ResetPassword(),
+                          ),
+                        );
                       },
                       style: TextButton.styleFrom(
                         foregroundColor: Colors.black54,
@@ -126,9 +161,11 @@ class _LogInState extends State<LogIn> {
                     ),
                     TextButton(
                       onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const SignUp(),
-                        ));
+                        Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(
+                            builder: (context) => const SignUp(),
+                          ),
+                        );
                       },
                       style: TextButton.styleFrom(
                         foregroundColor: Colors.black54,

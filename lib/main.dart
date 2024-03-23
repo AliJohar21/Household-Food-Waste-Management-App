@@ -1,8 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:phase_2_implementation/firebase_options.dart';
+import 'package:phase_2_implementation/home_screen/home_screen.dart';
 import 'package:phase_2_implementation/welcome/welcome.dart';
 import 'package:get/get.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,9 +19,10 @@ class FoodMinder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var isUserLoggedIn = FirebaseAuth.instance.currentUser != null;
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      home: const Welcome(),
+      home: isUserLoggedIn ? const HomeScreen() : const Welcome(),
       title: 'Flutter Demo',
       theme: ThemeData(
         fontFamily: 'SourceCodePro',
