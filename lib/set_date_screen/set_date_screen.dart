@@ -1,7 +1,5 @@
-/*import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
-
 
 class SetDateScreen extends StatefulWidget {
   const SetDateScreen({super.key});
@@ -11,8 +9,6 @@ class SetDateScreen extends StatefulWidget {
 }
 
 class _SetDateScreenState extends State<SetDateScreen> {
-
-
   DateTime selectedDate = DateTime.now();
 
   Future<void> _selectDate(BuildContext context) async {
@@ -34,7 +30,7 @@ class _SetDateScreenState extends State<SetDateScreen> {
     return Scaffold(
       appBar: AppBar(
         leading:
-        const BackButton(), // Replace with your own back button if needed
+            const BackButton(), // Replace with your own back button if needed
       ),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.fromLTRB(40, 14, 40, 7),
@@ -53,8 +49,7 @@ class _SetDateScreenState extends State<SetDateScreen> {
                 color: Colors.white,
                 fontSize: 26,
                 letterSpacing: 3,
-                fontWeight: FontWeight.w600
-            ),
+                fontWeight: FontWeight.w600),
           ),
         ),
       ),
@@ -65,26 +60,27 @@ class _SetDateScreenState extends State<SetDateScreen> {
           children: [
             Expanded(
                 child: Column(
-                  children: [
-                    const Text(
-                      'Set Date',
-                      style: TextStyle(
-                          fontFamily: "Avenir",
-                          fontSize: 30,
-                          fontWeight: FontWeight.w800,
-                          letterSpacing: 2),
-                    ),
-                    Text(
-                      'Select date you want to be notified ! ',
-                      style: TextStyle(
-                        fontFamily: "BergenMono",
-                        color: Colors.grey.shade600,
-                        fontSize: 24,),
-                      maxLines: 2,
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
-                )),
+              children: [
+                const Text(
+                  'Set Date',
+                  style: TextStyle(
+                      fontFamily: "Avenir",
+                      fontSize: 30,
+                      fontWeight: FontWeight.w800,
+                      letterSpacing: 2),
+                ),
+                Text(
+                  'Select date you want to be notified ! ',
+                  style: TextStyle(
+                    fontFamily: "BergenMono",
+                    color: Colors.grey.shade600,
+                    fontSize: 24,
+                  ),
+                  maxLines: 2,
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            )),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -112,15 +108,15 @@ class _SetDateScreenState extends State<SetDateScreen> {
                         disabledBorder: buildOutlineInputBorder(context),
                         enabledBorder: buildOutlineInputBorder(context),
                       ),
-                      onTap: ()=> _selectDate(context),
+                      onTap: () => _selectDate(context),
                     ),
                   ),
                 ),
                 const Expanded(
                     child: Icon(
-                      Icons.date_range_outlined,
-                      size: 30,
-                    )),
+                  Icons.date_range_outlined,
+                  size: 30,
+                )),
               ],
             ),
             Expanded(
@@ -137,12 +133,10 @@ class _SetDateScreenState extends State<SetDateScreen> {
     );
   }
 
-
-
   OutlineInputBorder buildOutlineInputBorder(BuildContext context) {
     return OutlineInputBorder(
         borderRadius: BorderRadius.circular(7),
         borderSide: BorderSide(
             color: Theme.of(context).primaryColor.withOpacity(.3), width: 2));
   }
-}*/
+}
