@@ -5,8 +5,8 @@ import 'package:url_launcher/url_launcher.dart';
 
 class Donate extends StatelessWidget {
   const Donate({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
