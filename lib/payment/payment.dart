@@ -6,10 +6,19 @@ class PaymentMethodPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Define the list of fixed donation amounts
-    final List<int> donationAmounts = [5, 10, 20, 50, 100];
+    final List<int> donationAmounts = [5, 10, 20, 20, 100];
 
     // Define the selected donation amount
     int selectedAmount = donationAmounts[0]; // Default to the first amount
+
+    // Controller for card number field
+    final TextEditingController cardNumberController = TextEditingController();
+    // Controller for name on card field
+    final TextEditingController nameOnCardController = TextEditingController();
+    // Controller for exp date field
+    final TextEditingController expDateController = TextEditingController();
+    // Controller for CVV field
+    final TextEditingController cvvController = TextEditingController();
 
     return Scaffold(
       appBar: AppBar(
@@ -19,59 +28,50 @@ class PaymentMethodPage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            const Stack(
-              children: [
-                Image(
-                  image: AssetImage('assets/credit_card_icon.png'),
-                  width: 400, // Set the width of the image
-                  height: 400, // Set the height of the image
-                ),
-                Positioned(
-                  bottom: 16.0,
-                  right: 16.0,
-                  child: Text(
-                    'MM/YY', // Display the date here
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ],
+            const SizedBox(
+              height: 0.0, // Add space between the image and the text field
             ),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.0),
+            const Image(
+              image: AssetImage('assets/credit_card_icon.png'),
+              width: 400, // Set the width of the image
+              height: 400, // Set the height of the image
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: TextField(
+                controller: nameOnCardController,
                 decoration: InputDecoration(
                   labelText: 'Name on card',
                 ),
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.0),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: TextField(
+                controller: cardNumberController,
                 decoration: InputDecoration(
                   labelText: 'Card number',
                 ),
                 keyboardType: TextInputType.number,
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.0),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Row(
                 children: <Widget>[
                   Expanded(
                     child: TextField(
+                      controller: expDateController,
                       decoration: InputDecoration(
-                        labelText: 'Exp date',
+                        labelText: 'Exp date (MM/YY)',
                       ),
                       keyboardType: TextInputType.number,
                     ),
                   ),
-                  SizedBox(width: 16),
+                  const SizedBox(width: 16),
                   Expanded(
                     child: TextField(
+                      controller: cvvController,
                       decoration: InputDecoration(
                         labelText: 'CVV',
                       ),
@@ -81,7 +81,7 @@ class PaymentMethodPage extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(height: 50),
+            const SizedBox(height: 40),
             // Text widget for indicating to select the donation amount
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.0),
@@ -111,6 +111,31 @@ class PaymentMethodPage extends StatelessWidget {
                         Text('$amount Dirhams'), // Display amount with Dirhams
                   );
                 }).toList(),
+              ),
+            ),
+            const SizedBox(height: 30),
+            // Donate button
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              child: ElevatedButton(
+                onPressed: () {
+                  // Handle donation
+                },
+                style: ElevatedButton.styleFrom(
+                  foregroundColor: Colors.white,
+                  backgroundColor: Colors.blue, // Text color
+                  elevation: 5, // Elevation
+                  shape: RoundedRectangleBorder(
+                    borderRadius:
+                        BorderRadius.circular(200), // Increased border radius
+                  ),
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 20, horizontal: 30), // Increased padding
+                ),
+                child: const Text(
+                  'Donate',
+                  style: TextStyle(fontSize: 20), // Increased font size
+                ),
               ),
             ),
           ],

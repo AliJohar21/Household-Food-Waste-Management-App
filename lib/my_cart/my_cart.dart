@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:phase_2_implementation/categories_screen/categories_screen.dart';
 import 'package:phase_2_implementation/donate_screen/donate_screen.dart';
-import 'package:phase_2_implementation/set_date_screen/set_date_screen.dart';
 
 class ShoppingCartPage extends StatefulWidget {
   const ShoppingCartPage({

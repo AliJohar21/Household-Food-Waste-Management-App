@@ -5,8 +5,8 @@ import 'package:url_launcher/url_launcher.dart';
 
 class Donate extends StatelessWidget {
   const Donate({
-    super.key,
-  });
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,6 +16,17 @@ class Donate extends StatelessWidget {
       ),
       body: Stack(
         children: [
+          // Background image
+          Container(
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(
+                    'assets/Welcome Page.png'), // Your image path here
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          // Content
           Align(
             alignment: Alignment.topCenter,
             child: Container(
@@ -49,13 +60,13 @@ class Donate extends StatelessWidget {
               children: [
                 ElevatedButton.icon(
                   icon: const Icon(Icons.fastfood,
-                      color: Colors.deepPurple, size: 50), // Adjusted icon size
+                      color: Colors.deepPurple, size: 50),
                   label: const Text('Food'),
                   onPressed: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => ShoppingCartPage(),
+                        builder: (context) => const ShoppingCartPage(),
                       ),
                     );
                   },
@@ -73,10 +84,10 @@ class Donate extends StatelessWidget {
                     elevation: 4,
                   ),
                 ),
-                const SizedBox(width: 30), // Spacing between buttons
+                const SizedBox(width: 30),
                 ElevatedButton.icon(
                   icon: const Icon(Icons.attach_money,
-                      color: Colors.deepPurple, size: 50), // Adjusted icon size
+                      color: Colors.deepPurple, size: 50),
                   label: const Text('Money'),
                   onPressed: () {
                     Navigator.push(
@@ -114,7 +125,7 @@ class Donate extends StatelessWidget {
                 child: const Text(
                   'Find Nearest Food Bank',
                   style: TextStyle(
-                    color: Colors.blue, // Text color
+                    color: Colors.blue,
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                   ),
@@ -127,7 +138,6 @@ class Donate extends StatelessWidget {
     );
   }
 
-  // Function to launch Google Maps
   void _launchMapsUrl() async {
     const url = 'https://www.google.com/maps/search/food+bank';
     if (await canLaunch(url)) {
