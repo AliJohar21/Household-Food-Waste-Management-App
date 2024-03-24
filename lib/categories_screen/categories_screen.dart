@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:phase_2_implementation/constantns/app_colors.dart';
 import 'package:get/get.dart';
+import 'package:phase_2_implementation/constantns/app_colors.dart';
 import 'package:phase_2_implementation/item_specs_page/item_specs_page.dart';
 import 'package:phase_2_implementation/models/food_category.dart';
 
 class CategoriesScreen extends StatefulWidget {
-  const CategoriesScreen({super.key});
+  const CategoriesScreen({
+    super.key,
+  });
 
   @override
   State<CategoriesScreen> createState() => _CategoriesScreenState();
@@ -21,12 +23,12 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
       body: Column(
         children: [
           Container(
-            height: Get.height * .2,
+            height: 200,
             width: Get.width,
             decoration: const BoxDecoration(
                 borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(220),
-                  bottomRight: Radius.circular(220),
+                  bottomLeft: Radius.circular(150),
+                  bottomRight: Radius.circular(150),
                 ),
                 color: Color(0xFFEBE4F8)),
             child: Padding(
@@ -34,7 +36,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
               child: Center(
                 child: Text(
                   "Categories",
-                  style: Get.theme.textTheme.labelLarge?.copyWith(fontSize: 26),
+                  style: Get.theme.textTheme.labelLarge?.copyWith(fontSize: 45),
                 ),
               ),
             ),
@@ -60,8 +62,8 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                     );
                   },
                   child: Container(
-                    width: Get.width * .7,
-                    height: Get.height * .07,
+                    width: 20,
+                    height: 65,
                     decoration: BoxDecoration(
                         color: selectedIndex == index
                             ? AppColors.mainColor
@@ -72,18 +74,25 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                       child: Text(
                         foodCategories[index].categoryName,
                         style: Get.theme.textTheme.labelLarge
-                            ?.copyWith(fontSize: 25),
+                            ?.copyWith(fontSize: 30),
                       ),
                     ),
                   ),
                 );
               },
-              separatorBuilder: (context, index) => const SizedBox(height: 15),
+              separatorBuilder: (context, index) => const SizedBox(height: 25),
               itemCount: foodCategories.length,
             ),
           ),
-          const SizedBox(height: 80)
+          const SizedBox(height: 80),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // Navigate to screen to add new category
+        },
+        backgroundColor: AppColors.mainColor,
+        child: const Icon(Icons.add),
       ),
     );
   }

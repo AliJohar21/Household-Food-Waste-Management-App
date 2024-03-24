@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:phase_2_implementation/constantns/app_colors.dart';
 import 'package:get/get.dart';
+import 'package:phase_2_implementation/constantns/app_colors.dart';
+import 'package:phase_2_implementation/categories_screen/categories_screen.dart';
 import 'package:phase_2_implementation/donate_screen/donate_screen.dart';
-import 'package:phase_2_implementation/main_screenF/main_navigation.dart';
+import 'package:phase_2_implementation/events_page/events_page.dart';
+import 'package:phase_2_implementation/my_cart/my_cart.dart'; // Import the MyCart screen
 import 'package:firebase_auth/firebase_auth.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  const HomeScreen({
+    Key? key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -50,6 +54,7 @@ class HomeScreen extends StatelessWidget {
               "Hi: ${FirebaseAuth.instance.currentUser?.displayName ?? ""}",
               style: const TextStyle(fontSize: 25),
             ),
+            const SizedBox(height: 10),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Row(
@@ -57,7 +62,7 @@ class HomeScreen extends StatelessWidget {
                   Text(
                     "Events",
                     style: Get.theme.textTheme.displaySmall?.copyWith(
-                      fontSize: 31,
+                      fontSize: 35,
                     ),
                   ),
                 ],
@@ -88,13 +93,20 @@ class HomeScreen extends StatelessWidget {
                           alignment: Alignment.centerLeft,
                           child: Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 20),
-                            child: Text(
-                              "View\nEvents",
-                              style: Get.theme.textTheme.displaySmall?.copyWith(
-                                  color: Colors.white,
-                                  fontSize: 28,
-                                  decoration: TextDecoration.underline,
-                                  decorationColor: Colors.white),
+                            child: InkWell(
+                              onTap: () {
+                                // Navigate to the EventsPage
+                                Get.to(() => const EventsPage());
+                              },
+                              child: Text(
+                                "View\nEvents",
+                                style: Get.theme.textTheme.displaySmall
+                                    ?.copyWith(
+                                        color: Colors.white,
+                                        fontSize: 28,
+                                        decoration: TextDecoration.underline,
+                                        decorationColor: Colors.white),
+                              ),
                             ),
                           ),
                         ),
@@ -112,7 +124,7 @@ class HomeScreen extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(height: 15),
+            const SizedBox(height: 100),
             Container(
               height: Get.height * .4,
               width: Get.width,
@@ -129,7 +141,8 @@ class HomeScreen extends StatelessWidget {
                         top: 60, left: Get.width * .25, right: Get.width * .25),
                     child: InkWell(
                       onTap: () {
-                        MainNavigation.of(context)?.setIndex(1);
+                        // Navigate to CategoriesScreen
+                        Get.to(() => const CategoriesScreen());
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -140,10 +153,8 @@ class HomeScreen extends StatelessWidget {
                               fontSize: 31,
                             ),
                           ),
-                          Image.asset(
-                            "assets/right.png",
-                            height: 40,
-                          )
+                          const Icon(Icons.add_circle_outline,
+                              size: 40, color: AppColors.mainColor),
                         ],
                       ),
                     ),
@@ -164,10 +175,31 @@ class HomeScreen extends StatelessWidget {
                               fontSize: 31,
                             ),
                           ),
-                          Image.asset(
-                            "assets/right.png",
-                            height: 40,
-                          )
+                          const Icon(Icons.monetization_on,
+                              size: 40, color: AppColors.mainColor),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(
+                        top: 20, left: Get.width * .25, right: Get.width * .18),
+                    child: InkWell(
+                      onTap: () {
+                        // Navigate to MyCart screen
+                        Get.to(const ShoppingCartPage());
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "My Cart",
+                            style: Get.theme.textTheme.displaySmall?.copyWith(
+                              fontSize: 31,
+                            ),
+                          ),
+                          const Icon(Icons.shopping_cart,
+                              size: 40, color: AppColors.mainColor),
                         ],
                       ),
                     ),

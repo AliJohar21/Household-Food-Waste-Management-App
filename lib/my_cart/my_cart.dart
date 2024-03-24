@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
-
 class ShoppingCartPage extends StatefulWidget {
+  const ShoppingCartPage({super.key});
+
   @override
   ShoppingCartPageState createState() => ShoppingCartPageState();
 }

@@ -1,3 +1,5 @@
+import 'package:flutter/src/widgets/icon_data.dart';
+
 class FoodCategory {
   String categoryName;
   String categoryImage;
@@ -5,6 +7,8 @@ class FoodCategory {
     required this.categoryName,
     required this.categoryImage,
   });
+
+  IconData? get icon => null;
 }
 
 //Fixed Categories
