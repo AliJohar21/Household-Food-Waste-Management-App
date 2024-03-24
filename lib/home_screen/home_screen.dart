@@ -3,7 +3,6 @@ import 'package:phase_2_implementation/constantns/app_colors.dart';
 import 'package:get/get.dart';
 import 'package:phase_2_implementation/donate_screen/donate_screen.dart';
 import 'package:phase_2_implementation/main_screenF/main_navigation.dart';
-import 'package:phase_2_implementation/payment/payment.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -154,7 +153,7 @@ class HomeScreen extends StatelessWidget {
                         top: 20, left: Get.width * .25, right: Get.width * .18),
                     child: InkWell(
                       onTap: () {
-                        Get.to(const DonateScreen());
+                        Get.to(const Donate());
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
