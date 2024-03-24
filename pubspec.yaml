@@ -39,6 +39,7 @@ dependencies:
   material_design_icons_flutter: ^7.0.7296
   google_fonts: ^6.2.1
   google_ml_kit: ^0.16.3
+  intl: ^0.17.0
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -122,6 +123,17 @@ flutter:
     - assets/meat 2.png
     - assets/milk.png
     - assets/cart.png
+    - assets/atlantis.png
+    - assets/caribou.png
+    - assets/carrefour.png
+    - assets/img.png
+    - assets/lulu.png
+    - assets/nesto.png
+    - assets/voxcinema.png
+    - assets/points_circle.png
+    - assets/nursery.png
+    - assets/damas.png
+
   #ahmed
     - assets/credit_card_icon.png
     - assets/chicken_icon.png

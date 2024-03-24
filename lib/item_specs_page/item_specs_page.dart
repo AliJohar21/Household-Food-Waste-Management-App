@@ -1,9 +1,12 @@
+//item_specifications_page
 import 'package:flutter/material.dart';
 import 'package:phase_2_implementation/models/food_category.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'package:intl/intl.dart';
+import 'package:flutter/gestures.dart';
 
 class FoodItemPage extends StatefulWidget {
   final FoodCategory foodCat;
@@ -23,6 +26,12 @@ class _FoodItemPageState extends State<FoodItemPage> {
   String _expiryDate = "Expiry date";
   bool _weightSelected = false;
   bool _quantitySelected = false;
+  DateTime? reminderDateTime;
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   Future<void> _scanBarcode() async {
     try {
@@ -51,8 +60,6 @@ class _FoodItemPageState extends State<FoodItemPage> {
     );
     if (picked != null && picked != DateTime.now()) {
       setState(() {
-        // Update _expiryDate with the format you prefer
-        // Here, it's formatted as YYYY-MM-DD
         _expiryDate =
             "${picked.year.toString()}-${picked.month.toString().padLeft(2, '0')}-${picked.day.toString().padLeft(2, '0')}";
       });
@@ -73,11 +80,8 @@ class _FoodItemPageState extends State<FoodItemPage> {
       String expiryDateText = ""; // Placeholder for extracted expiry date text
 
       // Example logic to find a date in the recognized text
-      // You'll need to adjust this based on the format of your dates
       for (TextBlock block in recognizedText.blocks) {
         final String text = block.text;
-        // Simple check for a date pattern (e.g., YYYY-MM-DD)
-        // This is a very basic check, consider using more robust date parsing
         if (RegExp(r'\d{4}-\d{2}-\d{2}').hasMatch(text)) {
           expiryDateText = text;
           break; // Stop looking once a date is found
@@ -95,28 +99,183 @@ class _FoodItemPageState extends State<FoodItemPage> {
     }
   }
 
+  Future<void> _pickReminderDateTime() async {
+    // First, let the user pick a date
+    final DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate:
+          DateTime.now().add(const Duration(days: 1)), // Suggest next day
+      firstDate: DateTime.now(),
+      lastDate: DateTime(2101),
+    );
+    if (pickedDate == null) return; // User canceled the date picker
+
+    // Then, let the user pick a time
+    final TimeOfDay? pickedTime = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.now(),
+    );
+    if (pickedTime == null) return; // User canceled the time picker
+
+    // Combine the date and time into a single DateTime
+    setState(() {
+      reminderDateTime = DateTime(
+        pickedDate.year,
+        pickedDate.month,
+        pickedDate.day,
+        pickedTime.hour,
+        pickedTime.minute,
+      );
+    });
+
+    // Here, you would also schedule the notification using your preferred notification package
+  }
+
+  bool _validateFields() {
+    // Case 1: Check if all fields are empty
+    if (_nameController.text.isEmpty &&
+        !_weightSelected &&
+        !_quantitySelected &&
+        _expiryDate == "Expiry date") {
+      _showErrorMessage(
+        "All fields are empty",
+        "You must fill in the details for the item before confirming.",
+        cancelAction: () {
+          Navigator.of(context).pop();
+        }, // Close the dialog
+      );
+      return false;
+    }
+
+    // Case 2: Check if neither Weight nor Quantity is selected
+    if (!_weightSelected && !_quantitySelected) {
+      _showErrorMessage(
+        "Weight or Quantity Required",
+        "Please select and fill either Weight or Quantity.",
+        cancelAction: () {
+          Navigator.of(context).pop(); // This will just close the dialog
+        }, // You can provide actions or leave it empty to only close the dialog
+      );
+      return false;
+    }
+
+    // Case 3: Check if Weight or Quantity is zero
+    if ((_weightSelected && _weightController.text == '0') ||
+        (_quantitySelected && _quantityController.text == '0')) {
+      _showErrorMessage(
+        "Invalid Input",
+        "Weight or Quantity can't be zero.",
+        cancelAction: () {
+          Navigator.of(context).pop();
+        }, // This will just close the dialog
+      );
+      return false;
+    }
+
+    // Case 4: Check if Expiry Date is today or past
+    if (_expiryDate != "Expiry date") {
+      DateTime selectedDate = DateFormat('yyyy-MM-dd').parse(_expiryDate);
+      DateTime now = DateTime.now();
+      DateTime today = DateTime(now.year, now.month, now.day);
+
+      if (selectedDate.isAtSameMomentAs(today) ||
+          selectedDate.isBefore(today)) {
+        _showExpiryDialog();
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  void _showErrorMessage(String title, String content,
+      {VoidCallback? cancelAction, VoidCallback? continueEditingAction}) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(title),
+          content: Text(content),
+          actions: [
+            TextButton(
+              onPressed: () {
+                if (cancelAction != null) {
+                  cancelAction();
+                } else {
+                  Navigator.of(context).pop();
+                }
+              },
+              child: const Text('Cancel'),
+            ),
+            if (continueEditingAction != null)
+              TextButton(
+                onPressed: continueEditingAction,
+                child: const Text('Continue Editing'),
+              ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _showExpiryDialog() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Item Expired'),
+        content: const Text(
+            'The item is already expired, would you still like to keep it or donate?'),
+        actions: [
+          TextButton(
+            onPressed: () {
+              // Resume app functionalities normally;
+              Navigator.of(context).pop(); // Close the dialog
+            },
+            child: const Text('Keep'),
+          ),
+          TextButton(
+            onPressed: () {
+              // Redirect to Donate food page, and add item there;
+              // You need to implement this navigation logic
+            },
+            child: const Text('Donate'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _confirmItem() {
+    // Code for confirming the item after all validations pass
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Transform.translate(
-          offset: const Offset(0, 8),
+          offset: const Offset(0, 0),
           child: const Text(
             'Add Food item',
             style: TextStyle(
-                fontWeight: FontWeight.w600,
-                color: Colors.deepPurple,
+                fontWeight: FontWeight.w200,
+                color: Colors.black,
                 fontSize: 22.0), //Black (thickest text)
           ),
         ),
         actions: [
           IconButton(
             icon: Transform.translate(
-              offset: const Offset(0, 7),
+              offset: const Offset(0, 0),
               child: Image.asset('assets/cart.png', width: 44, height: 44),
             ),
             onPressed: () {
-              // Placeholder for future navigation action
+              // Navigate to cart page
+              //Navigator.push(
+              //context,
+              //MaterialPageRoute(builder: (context) => cart_page()),
+              //);
             },
           ),
         ],
@@ -162,7 +321,10 @@ class _FoodItemPageState extends State<FoodItemPage> {
               ),
               label: const Text(
                 'Scan Barcode',
-                style: TextStyle(fontSize: 22, color: Colors.white),
+                style: TextStyle(
+                    fontSize: 22,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold),
               ),
               onPressed: _scanBarcode,
               style: ElevatedButton.styleFrom(
@@ -170,7 +332,7 @@ class _FoodItemPageState extends State<FoodItemPage> {
                     Colors.deepPurple, // Use backgroundColor instead of primary
                 foregroundColor:
                     Colors.white, // Use foregroundColor instead of onPrimary
-                fixedSize: const Size(280, 50),
+                fixedSize: const Size(260, 50),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(50),
                 ),
@@ -203,8 +365,9 @@ class _FoodItemPageState extends State<FoodItemPage> {
                     title: const Text(
                       "Weight",
                       style: TextStyle(
-                        fontSize: 18,
-                      ),
+                          fontSize: 18,
+                          color: Colors.black,
+                          fontWeight: FontWeight.w500),
                     ),
                     value: _weightSelected,
                     onChanged: (bool? newValue) {
@@ -220,8 +383,9 @@ class _FoodItemPageState extends State<FoodItemPage> {
                     title: const Text(
                       "Quantity",
                       style: TextStyle(
-                        fontSize: 18,
-                      ),
+                          fontSize: 18,
+                          color: Colors.black,
+                          fontWeight: FontWeight.w500),
                     ),
                     value: _quantitySelected,
                     onChanged: (bool? newValue) {
@@ -315,22 +479,91 @@ class _FoodItemPageState extends State<FoodItemPage> {
 
             const SizedBox(height: 20),
 
-            Center(
-              child: ElevatedButton(
-                onPressed: () {
-                  // Implement what happens when the item is added
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color.fromARGB(255, 166, 129, 230),
-                  foregroundColor: Colors.white,
-                  fixedSize: const Size(200, 25),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50),
-                  ),
+            //add the "Remind Me" button:
+            ElevatedButton(
+              onPressed: () {
+                // Call the function to show date and time picker dialogs
+                _pickReminderDateTime();
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color.fromARGB(255, 240, 236, 154),
+                foregroundColor: Colors.white,
+                fixedSize: const Size(200, 25),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(50),
                 ),
-                child: const Text(
-                  'Confirm Item',
-                  style: TextStyle(fontSize: 18, color: Colors.white),
+              ),
+              child: const Text(
+                'Remind Me?',
+                style: TextStyle(
+                    fontSize: 18,
+                    color: Color.fromRGBO(0, 0, 0, 1),
+                    fontWeight: FontWeight.w400),
+              ),
+            ),
+
+            // Reminder DateTime Display and Edit button
+            if (reminderDateTime != null) // Check if a reminder is set
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Flexible(
+                      child: RichText(
+                        textAlign: TextAlign.center,
+                        text: TextSpan(
+                          style: DefaultTextStyle.of(context).style,
+                          children: <TextSpan>[
+                            TextSpan(
+                              text:
+                                  "We will remind you on ${DateFormat('yyyy-MM-dd').format(reminderDateTime!)} at ${DateFormat('HH:mm').format(reminderDateTime!)}.",
+                              style: const TextStyle(
+                                fontSize: 12,
+                                color: Color.fromARGB(255, 77, 76, 76),
+                              ),
+                            ),
+                            TextSpan(
+                              text: 'Edit?',
+                              style: const TextStyle(
+                                fontSize: 12,
+                                color: Color.fromARGB(255, 255, 0, 0),
+                                decoration: TextDecoration.underline,
+                              ),
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = _pickReminderDateTime,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+            const SizedBox(height: 20), // Space between buttons
+
+            // Confirm Item Button
+            ElevatedButton(
+              onPressed: () {
+                if (_validateFields()) {
+                  _confirmItem();
+                }
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color.fromARGB(255, 166, 129, 230),
+                foregroundColor: Colors.white,
+                fixedSize: const Size(200, 25),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(50),
+                ),
+              ),
+              child: const Text(
+                'Confirm Item',
+                style: TextStyle(
+                  fontSize: 18,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w900,
                 ),
               ),
             ),
