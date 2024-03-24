@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:phase_2_implementation/categories_screen/categories_screen.dart';
+import 'package:phase_2_implementation/donate_screen/donate_screen.dart';
+import 'package:phase_2_implementation/set_date_screen/set_date_screen.dart';
 
 class ShoppingCartPage extends StatefulWidget {
-  const ShoppingCartPage({super.key});
+  const ShoppingCartPage({
+    super.key,
+  });
 
   @override
   ShoppingCartPageState createState() => ShoppingCartPageState();
@@ -42,114 +47,130 @@ class ShoppingCartPageState extends State<ShoppingCartPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('My Cart'),
-          centerTitle: true,
-          actions: <Widget>[],
-        ),
-        body: ListView(
-          padding: const EdgeInsets.all(16.0),
-          children: <Widget>[
-            CartItemWidget(
-              imagePath: 'assets/chicken_icon.png',
-              itemName: 'Chicken',
-              itemWeight: '500g',
-              itemDate: '13/2/24',
-              quantity: chickenCount,
-              onIncrement:
-                  incrementChicken, // TODO: make it so it works on data inputted by the user, not only chicken and bread
-              onDecrement: decrementChicken,
-            ),
-            SizedBox(height: 8),
-            CartItemWidget(
-              imagePath: 'assets/bread.png',
-              itemName: 'Bread',
-              itemWeight: '130g',
-              itemDate: '24/2/24',
-              quantity: breadCount,
-              onIncrement: incrementBread,
-              onDecrement: decrementBread,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 16.0),
-              child: TextButton(
-                onPressed: (// TODO: remove added items
-                    ) {},
-                child: Text(
-                  'Add items',
-                  style: TextStyle(color: Colors.green),
-                ),
-                style: TextButton.styleFrom(
-                  backgroundColor: Colors.white,
-                  side: BorderSide(color: Colors.green, width: 3),
-                  padding: EdgeInsets.symmetric(vertical: 12),
-                ),
+      appBar: AppBar(
+        title: const Text('My Cart'),
+        centerTitle: true,
+        actions: const <Widget>[],
+      ),
+      body: ListView(
+        padding: const EdgeInsets.all(16.0),
+        children: <Widget>[
+          CartItemWidget(
+            imagePath: 'assets/chicken_icon.png',
+            itemName: 'Chicken',
+            itemWeight: '500g',
+            itemDate: '13/2/24',
+            quantity: chickenCount,
+            onIncrement: incrementChicken,
+            onDecrement: decrementChicken,
+          ),
+          const SizedBox(height: 8),
+          CartItemWidget(
+            imagePath: 'assets/bread.png',
+            itemName: 'Bread',
+            itemWeight: '130g',
+            itemDate: '24/2/24',
+            quantity: breadCount,
+            onIncrement: incrementBread,
+            onDecrement: decrementBread,
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 16.0),
+            child: TextButton(
+              onPressed: () {
+                // Navigate to CategoriesScreen
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const CategoriesScreen()));
+              },
+              style: TextButton.styleFrom(
+                backgroundColor: Colors.white,
+                side: const BorderSide(color: Colors.green, width: 3),
+                padding: const EdgeInsets.symmetric(vertical: 12),
+              ),
+              child: const Text(
+                'Add items',
+                style: TextStyle(color: Colors.green),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 16.0, top: 16.0),
-              child: TextButton(
-                onPressed: (// TODO: remove added items
-                    ) {},
-                child: Text(
-                  'Clear all items',
-                  style: TextStyle(color: Colors.red),
-                ),
-                style: TextButton.styleFrom(
-                  backgroundColor: Colors.white,
-                  side: BorderSide(color: Colors.red, width: 3),
-                  padding: EdgeInsets.symmetric(vertical: 12),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 16.0, top: 16.0),
+            child: TextButton(
+              onPressed: () {
+                // Clear all items
+              },
+              style: TextButton.styleFrom(
+                backgroundColor: Colors.white,
+                side: const BorderSide(color: Colors.red, width: 3),
+                padding: const EdgeInsets.symmetric(vertical: 12),
+              ),
+              child: const Text(
+                'Clear all items',
+                style: TextStyle(color: Colors.red),
+              ),
+            ),
+          )
+        ],
+      ),
+      bottomNavigationBar: BottomAppBar(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(right: 8.0),
+                child: TextButton(
+                  onPressed: () {
+                    // Navigate to CategoriesScreen
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const SetDateScreen()));
+                  },
+                  style: TextButton.styleFrom(
+                    backgroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20.0, vertical: 16.0),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                      side: const BorderSide(color: Colors.purple),
+                    ),
+                  ),
+                  child: const Text(
+                    'Remind me',
+                    style: TextStyle(color: Colors.purple, fontSize: 18),
+                  ),
                 ),
               ),
-            )
-          ],
+              TextButton(
+                onPressed: () {
+                  // Navigate to DonateScreen
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => const Donate()));
+                },
+                style: TextButton.styleFrom(
+                  backgroundColor: Colors.white,
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 30.0, vertical: 16.0),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
+                    side: const BorderSide(color: Colors.purple),
+                  ),
+                ),
+                child: const Text(
+                  'Donate',
+                  style: TextStyle(color: Colors.purple, fontSize: 18),
+                ),
+              )
+            ],
+          ),
         ),
-        bottomNavigationBar: BottomAppBar(
-            child: Padding(
-                padding: const EdgeInsets.symmetric(),
-                child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment:
-                        MainAxisAlignment.center, // Center the buttons
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(right: 8.0),
-                        child: TextButton(
-                          onPressed: () {},
-                          child: Text(
-                            'Remind me',
-                            style:
-                                TextStyle(color: Colors.purple, fontSize: 18),
-                          ),
-                          style: TextButton.styleFrom(
-                            backgroundColor: Colors.white,
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 20.0, vertical: 16.0),
-                            shape: RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.circular(30), // Rounded corners
-                              side: BorderSide(color: Colors.purple),
-                            ),
-                          ),
-                        ),
-                      ),
-                      TextButton(
-                          onPressed: () {},
-                          child: Text(
-                            'Donate',
-                            style:
-                                TextStyle(color: Colors.purple, fontSize: 18),
-                          ),
-                          style: TextButton.styleFrom(
-                            backgroundColor: Colors.white,
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 30.0, vertical: 16.0),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30),
-                              side: BorderSide(color: Colors.purple),
-                            ),
-                          ))
-                    ]))));
+      ),
+    );
   }
 }
 
@@ -162,7 +183,7 @@ class CartItemWidget extends StatelessWidget {
   final VoidCallback onDecrement;
   final String imagePath;
 
-  CartItemWidget({
+  const CartItemWidget({
     Key? key,
     required this.itemName,
     required this.imagePath,
@@ -171,12 +192,12 @@ class CartItemWidget extends StatelessWidget {
     required this.quantity,
     required this.onIncrement,
     required this.onDecrement,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(15),
@@ -186,20 +207,20 @@ class CartItemWidget extends StatelessWidget {
         child: Row(
           children: <Widget>[
             Image.asset(imagePath, width: 100, height: 100),
-            SizedBox(width: 8),
+            const SizedBox(width: 8),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Text(
                   itemName,
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                  style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
                 Text(itemWeight),
                 Text(itemDate),
               ],
             ),
-            Spacer(),
+            const Spacer(),
             Counter(
               quantity: quantity,
               onIncrement: onIncrement,
@@ -222,19 +243,19 @@ class Counter extends StatelessWidget {
     required this.quantity,
     required this.onIncrement,
     required this.onDecrement,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: <Widget>[
         IconButton(
-          icon: Icon(Icons.remove),
+          icon: const Icon(Icons.remove),
           onPressed: onDecrement,
         ),
         Text(quantity.toString()),
         IconButton(
-          icon: Icon(Icons.add),
+          icon: const Icon(Icons.add),
           onPressed: onIncrement,
         ),
       ],

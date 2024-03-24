@@ -33,7 +33,7 @@ class _SetDateScreenState extends State<SetDateScreen> {
             const BackButton(), // Replace with your own back button if needed
       ),
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.fromLTRB(40, 14, 40, 7),
+        padding: const EdgeInsets.fromLTRB(40, 14, 40, 50),
         child: ElevatedButton(
           onPressed: () {
             // TODO: Implement your done button handler
@@ -45,7 +45,6 @@ class _SetDateScreenState extends State<SetDateScreen> {
           child: const Text(
             'Done',
             style: TextStyle(
-                fontFamily: "Avenir",
                 color: Colors.white,
                 fontSize: 26,
                 letterSpacing: 3,
@@ -64,17 +63,16 @@ class _SetDateScreenState extends State<SetDateScreen> {
                 const Text(
                   'Set Date',
                   style: TextStyle(
-                      fontFamily: "Avenir",
-                      fontSize: 30,
+                      fontSize: 45,
                       fontWeight: FontWeight.w800,
                       letterSpacing: 2),
                 ),
+                const SizedBox(height: 150),
                 Text(
                   'Select date you want to be notified ! ',
                   style: TextStyle(
-                    fontFamily: "BergenMono",
                     color: Colors.grey.shade600,
-                    fontSize: 24,
+                    fontSize: 25,
                   ),
                   maxLines: 2,
                   textAlign: TextAlign.center,
@@ -84,15 +82,12 @@ class _SetDateScreenState extends State<SetDateScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Expanded(
-                  flex: 2,
-                  child: Text(
-                    'Date : ',
-                    style: TextStyle(
-                        fontSize: 28,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.grey.shade700),
-                  ),
+                Text(
+                  'Date : ',
+                  style: TextStyle(
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey.shade700),
                 ),
                 Expanded(
                   flex: 5,
@@ -115,7 +110,7 @@ class _SetDateScreenState extends State<SetDateScreen> {
                 const Expanded(
                     child: Icon(
                   Icons.date_range_outlined,
-                  size: 30,
+                  size: 40,
                 )),
               ],
             ),
@@ -123,8 +118,8 @@ class _SetDateScreenState extends State<SetDateScreen> {
               child: Align(
                   alignment: Alignment.bottomCenter,
                   child: Image.asset(
-                    'images/Picsart_24-03-19_15-07-34-003.png',
-                    height: 220,
+                    'assets/Picsart_24-03-19_15-07-34-003.png',
+                    height: 250,
                   )),
             ),
           ],
