@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:phase_2_implementation/my_cart/my_cart.dart';
 import 'package:phase_2_implementation/payment/payment.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Donate extends StatelessWidget {
-  const Donate({super.key});
+  const Donate({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -11,63 +14,126 @@ class Donate extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Home Page'),
       ),
-      body: Center(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            ElevatedButton.icon(
-              icon: const Icon(Icons.fastfood, color: Colors.deepPurple),
-              label: const Text('Food'),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => ShoppingCartPage()),
-                );
-              },
-              style: ElevatedButton.styleFrom(
-                foregroundColor: Colors.white,
-                backgroundColor: Colors.green, // Text color
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(8)),
-                ),
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 50, vertical: 50),
-                textStyle: const TextStyle(
-                  fontSize: 16,
+      body: Stack(
+        children: [
+          Align(
+            alignment: Alignment.topCenter,
+            child: Container(
+              padding: const EdgeInsets.only(top: 50),
+              child: const Text(
+                'Donate',
+                style: TextStyle(
+                  fontSize: 60,
                   fontWeight: FontWeight.bold,
                 ),
-                elevation: 4,
               ),
             ),
-            const SizedBox(width: 50), // Spacing between buttons
-            ElevatedButton.icon(
-              icon: const Icon(Icons.attach_money, color: Colors.deepPurple),
-              label: const Text('Money'),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const PaymentMethodPage()),
-                );
-              },
-              style: ElevatedButton.styleFrom(
-                foregroundColor: Colors.white,
-                backgroundColor: Colors.blue, // Text color
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(8)),
-                ),
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 50, vertical: 50),
-                textStyle: const TextStyle(
-                  fontSize: 16,
+          ),
+          Align(
+            alignment: Alignment.topCenter,
+            child: Container(
+              padding: const EdgeInsets.only(top: 300),
+              child: const Text(
+                'Please select the donation type',
+                style: TextStyle(
+                  fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
-                elevation: 4,
               ),
             ),
-          ],
-        ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 350),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton.icon(
+                  icon: const Icon(Icons.fastfood,
+                      color: Colors.deepPurple, size: 50), // Adjusted icon size
+                  label: const Text('Food'),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ShoppingCartPage(),
+                      ),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    foregroundColor: Colors.deepPurple,
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(8)),
+                    ),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 35, vertical: 50),
+                    textStyle: const TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    elevation: 4,
+                  ),
+                ),
+                const SizedBox(width: 30), // Spacing between buttons
+                ElevatedButton.icon(
+                  icon: const Icon(Icons.attach_money,
+                      color: Colors.deepPurple, size: 50), // Adjusted icon size
+                  label: const Text('Money'),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const PaymentMethodPage(),
+                      ),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    foregroundColor: Colors.deepPurple,
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(8)),
+                    ),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 35, vertical: 50),
+                    textStyle: const TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    elevation: 4,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 20),
+              child: TextButton(
+                onPressed: () {
+                  _launchMapsUrl();
+                },
+                child: const Text(
+                  'Find Nearest Food Bank',
+                  style: TextStyle(
+                    color: Colors.blue, // Text color
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
+  }
+
+  // Function to launch Google Maps
+  void _launchMapsUrl() async {
+    const url = 'https://www.google.com/maps/search/food+bank';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 }
