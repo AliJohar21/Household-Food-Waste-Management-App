@@ -55,9 +55,9 @@ class Welcome extends StatelessWidget {
                   //flex: 2,
                   child: ElevatedButton(
                     onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const SignUp(),
-                      ));
+                      Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(builder: (context) => const SignUp()),
+                      );
                     },
                     style: ElevatedButton.styleFrom(
                       foregroundColor: Colors.white,

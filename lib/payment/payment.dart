@@ -1,68 +1,77 @@
 import 'package:flutter/material.dart';
 
 class PaymentMethodPage extends StatelessWidget {
-  const PaymentMethodPage({super.key});
+  const PaymentMethodPage({Key? key});
 
   @override
   Widget build(BuildContext context) {
+    // Define the list of fixed donation amounts
+    final List<int> donationAmounts = [5, 10, 20, 20, 100];
+
+    // Define the selected donation amount
+    int selectedAmount = donationAmounts[0]; // Default to the first amount
+
+    // Controller for card number field
+    final TextEditingController cardNumberController = TextEditingController();
+    // Controller for name on card field
+    final TextEditingController nameOnCardController = TextEditingController();
+    // Controller for exp date field
+    final TextEditingController expDateController = TextEditingController();
+    // Controller for CVV field
+    final TextEditingController cvvController = TextEditingController();
+
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Donate Money'), // Title on the app bar
+        centerTitle: true, // Center the title
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            const Padding(
-              padding: EdgeInsets.all(16.0),
-              child: Image(
-                image: AssetImage('assets/credit_card_icon.png'),
+            const SizedBox(
+              height: 0.0, // Add space between the image and the text field
+            ),
+            const Image(
+              image: AssetImage('assets/credit_card_icon.png'),
+              width: 400, // Set the width of the image
+              height: 400, // Set the height of the image
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: TextField(
+                controller: nameOnCardController,
+                decoration: InputDecoration(
+                  labelText: 'Name on card',
+                ),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: ElevatedButton(
-                onPressed: () {
-                  // TO DO: do something whenever the new card is added
-                },
-                style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30.0),
-                  ),
-                  side: BorderSide(color: Colors.purple.shade900),
-                  minimumSize: const Size(30, 50),
-                ),
-                child: const Text('Add a new card'),
-              ),
-            ),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.0),
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: TextField(
-                decoration: InputDecoration(
-                  labelText: 'Name of card',
-                ),
-              ),
-            ),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.0),
-              child: TextField(
+                controller: cardNumberController,
                 decoration: InputDecoration(
                   labelText: 'Card number',
                 ),
                 keyboardType: TextInputType.number,
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.0),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Row(
                 children: <Widget>[
                   Expanded(
                     child: TextField(
+                      controller: expDateController,
                       decoration: InputDecoration(
-                        labelText: 'Exp date',
+                        labelText: 'Exp date (MM/YY)',
                       ),
                       keyboardType: TextInputType.number,
                     ),
                   ),
-                  SizedBox(width: 16),
+                  const SizedBox(width: 16),
                   Expanded(
                     child: TextField(
+                      controller: cvvController,
                       decoration: InputDecoration(
                         labelText: 'CVV',
                       ),
@@ -72,19 +81,61 @@ class PaymentMethodPage extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(height: 24),
+            const SizedBox(height: 40),
+            // Text widget for indicating to select the donation amount
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.0),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Select amount of donation',
+                  style: TextStyle(fontSize: 18),
+                ),
+              ),
+            ),
+            // Dropdown button for selecting the donation amount
             Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 50),
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    minimumSize: const Size(double.infinity, 50),
-                    backgroundColor: Colors.deepPurple,
-                    foregroundColor: Colors.white),
-                onPressed: () {
-                  // TO DO: do something whenever the donate button is clicked
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: DropdownButton<int>(
+                value: selectedAmount,
+                onChanged: (int? newValue) {
+                  if (newValue != null) {
+                    // Update the selected donation amount
+                    selectedAmount = newValue;
+                  }
                 },
-                child: const Text('Donate \$100'),
+                items: donationAmounts.map((int amount) {
+                  return DropdownMenuItem<int>(
+                    value: amount,
+                    child:
+                        Text('$amount Dirhams'), // Display amount with Dirhams
+                  );
+                }).toList(),
+              ),
+            ),
+            const SizedBox(height: 30),
+            // Donate button
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              child: ElevatedButton(
+                onPressed: () {
+                  // Handle donation
+                },
+                style: ElevatedButton.styleFrom(
+                  foregroundColor: Colors.white,
+                  backgroundColor: Colors.blue, // Text color
+                  elevation: 5, // Elevation
+                  shape: RoundedRectangleBorder(
+                    borderRadius:
+                        BorderRadius.circular(200), // Increased border radius
+                  ),
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 20, horizontal: 30), // Increased padding
+                ),
+                child: const Text(
+                  'Donate',
+                  style: TextStyle(fontSize: 20), // Increased font size
+                ),
               ),
             ),
           ],

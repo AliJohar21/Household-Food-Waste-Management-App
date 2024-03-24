@@ -35,6 +35,7 @@ class _FoodItemPageState extends State<FoodItemPage> {
 
   Future<void> _scanBarcode() async {
     try {
+      // ignore: unused_local_variable
       final barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
         "#ff6666",
         "Cancel",

@@ -55,8 +55,7 @@ dependencies:
   firebase_database: 
   firebase_storage:
   firebase_core: ^2.17.0
-  firebase_analytics: 10.2.1
-  firebase_auth:
+  firebase_auth: ^4.17.9
   google_mlkit_text_recognition: ^0.11.0
   #image_picker:
   path:
@@ -65,6 +64,9 @@ dependencies:
   #camera: ^0.10.0
   google_maps_flutter: ^2.2.5
   google_mlkit_commons: ^0.6.1
+
+  #reem1
+  intl: ^0.18.1
 
 dev_dependencies:
   flutter_test:
@@ -99,6 +101,7 @@ flutter:
     - assets/HomePage1.png
     - assets/mobile-password-forgot.png
     - assets/FOODMINDER.png
+    - assets/Welcome Page.png
   #fahed
     - assets/barcode.png
     - assets/custom_shape.png
@@ -133,6 +136,7 @@ flutter:
 
   #ahmed
     - assets/credit_card_icon.png
+    - assets/chicken_icon.png
   #reem
     - assets/Picsart_24-03-19_00-23-24-161.png
     - assets/Picsart_24-03-19_01-27-05-307.png
@@ -143,10 +147,23 @@ flutter:
       fonts:
         - asset: assets/fonts/SourceCodePro-Regular.ttf
 
-    - family: Verdana
-      fonts:
-        - asset: assets/fonts/verdana.ttf
-        - asset: assets/fonts/verdana-bold.ttf
+    # - family: Verdana
+    #   fonts:
+    #     - asset: assets/fonts/verdana.ttf
+    #     - asset: assets/fonts/verdana-bold.ttf
+    #     - family: Odisseia
+
+    # - family: OdisseiaTest 
+    #   fonts:
+    #     - asset: assets/fonts/OdisseiaTest-Regular.otf
+
+    # - family: Avenir
+    #   fonts:
+    #     - asset: assets/fonts/AvenirLTStd-Roman.otf
+
+    # - family: BergenMono
+    #   fonts:
+    #     - asset: assets/fonts/BergenMono-Bold.otf
         # Assuming 400 is the weight for the regular font, no need to specify it as it's default
 
   # The following line ensures that the Material Icons font is
