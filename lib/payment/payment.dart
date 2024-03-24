@@ -19,7 +19,7 @@ class PaymentMethodPage extends StatelessWidget {
               padding: const EdgeInsets.all(16.0),
               child: ElevatedButton(
                 onPressed: () {
-                  // TODO: do something whenever the new card is added
+                  // TO DO: do something whenever the new card is added
                 },
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
@@ -74,14 +74,15 @@ class PaymentMethodPage extends StatelessWidget {
             ),
             const SizedBox(height: 24),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 50),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 50),
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                     minimumSize: const Size(double.infinity, 50),
                     backgroundColor: Colors.deepPurple,
                     foregroundColor: Colors.white),
                 onPressed: () {
-                  // TODO: do something whenever the donate button is clicked
+                  // TO DO: do something whenever the donate button is clicked
                 },
                 child: const Text('Donate \$100'),
               ),

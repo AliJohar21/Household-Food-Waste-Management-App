@@ -25,16 +25,16 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
             width: Get.width,
             decoration: const BoxDecoration(
                 borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(220),
-                  bottomRight: Radius.circular(220),
+                  bottomLeft: Radius.circular(260),
+                  bottomRight: Radius.circular(260),
                 ),
-                color: Color(0xFFEBE4F8)),
+                color: Color.fromARGB(255, 230, 201, 246)),
             child: Padding(
               padding: const EdgeInsets.all(20),
               child: Center(
                 child: Text(
                   "Categories",
-                  style: Get.theme.textTheme.labelLarge?.copyWith(fontSize: 26),
+                  style: Get.theme.textTheme.labelLarge?.copyWith(fontSize: 28),
                 ),
               ),
             ),

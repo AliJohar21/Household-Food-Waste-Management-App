@@ -3,6 +3,7 @@ import 'package:phase_2_implementation/constantns/app_colors.dart';
 import 'package:get/get.dart';
 import 'package:phase_2_implementation/main_screenF/main_navigation.dart';
 import 'package:phase_2_implementation/payment/payment.dart';
+import 'package:phase_2_implementation/points/points_page.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -94,26 +95,32 @@ class HomeScreen extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Container(
-                        decoration: BoxDecoration(
-                            border: Border.all(),
-                            borderRadius: BorderRadius.circular(25)),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 10, vertical: 4),
-                          child: Row(
-                            children: [
-                              Text(
-                                "214",
-                                style: Get.theme.textTheme.titleLarge
-                                    ?.copyWith(color: AppColors.mainColor),
-                              ),
-                              Image.asset(
-                                "assets/money.png",
-                                height: 30,
-                                width: 30,
-                              )
-                            ],
+                      GestureDetector(
+                        //used to detect tap and navigate to points page
+                        onTap: () {
+                          Get.to(() => const PointsPage());
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                              border: Border.all(),
+                              borderRadius: BorderRadius.circular(25)),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 4),
+                            child: Row(
+                              children: [
+                                Text(
+                                  "214",
+                                  style: Get.theme.textTheme.titleLarge
+                                      ?.copyWith(color: AppColors.mainColor),
+                                ),
+                                Image.asset(
+                                  "assets/money.png",
+                                  height: 30,
+                                  width: 30,
+                                )
+                              ],
+                            ),
                           ),
                         ),
                       ),
