@@ -1,46 +1,71 @@
 import 'package:flutter/material.dart';
 
-class PaymentMethodPage extends StatelessWidget {
-  const PaymentMethodPage({Key? key});
+class PaymentMethodPage extends StatefulWidget {
+  const PaymentMethodPage({Key? key}) : super(key: key);
+
+  @override
+  _PaymentMethodPageState createState() => _PaymentMethodPageState();
+}
+
+class _PaymentMethodPageState extends State<PaymentMethodPage> {
+  // Define the list of fixed donation amounts
+  final List<int> donationAmounts = [5, 10, 20, 100];
+
+  // Define the selected donation amount
+  int? selectedAmount;
+
+  // Define the controller for the custom donation amount
+  final TextEditingController customDonationController =
+      TextEditingController();
+
+  // Controllers for text fields
+  final TextEditingController cardNumberController = TextEditingController();
+  final TextEditingController nameOnCardController = TextEditingController();
+  final TextEditingController expDateController = TextEditingController();
+  final TextEditingController cvvController = TextEditingController();
+
+  @override
+  void dispose() {
+    // Dispose of the controllers when the widget is removed from the widget tree
+    cardNumberController.dispose();
+    nameOnCardController.dispose();
+    expDateController.dispose();
+    cvvController.dispose();
+    customDonationController.dispose();
+    super.dispose();
+  }
+
+  void selectAmount(int amount) {
+    // Update the selected donation amount and clear custom amount field
+    setState(() {
+      selectedAmount = amount;
+      customDonationController.clear();
+    });
+  }
+
+  void setCustomAmount(String amount) {
+    // Update the selected donation amount with the custom amount entered
+    setState(() {
+      selectedAmount = int.tryParse(amount);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    // Define the list of fixed donation amounts
-    final List<int> donationAmounts = [5, 10, 20, 20, 100];
-
-    // Define the selected donation amount
-    int selectedAmount = donationAmounts[0]; // Default to the first amount
-
-    // Controller for card number field
-    final TextEditingController cardNumberController = TextEditingController();
-    // Controller for name on card field
-    final TextEditingController nameOnCardController = TextEditingController();
-    // Controller for exp date field
-    final TextEditingController expDateController = TextEditingController();
-    // Controller for CVV field
-    final TextEditingController cvvController = TextEditingController();
-
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Donate Money'), // Title on the app bar
-        centerTitle: true, // Center the title
+        title: const Text('Donate Money'),
+        centerTitle: true,
       ),
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            const SizedBox(
-              height: 0.0, // Add space between the image and the text field
-            ),
-            const Image(
-              image: AssetImage('assets/credit_card_icon.png'),
-              width: 400, // Set the width of the image
-              height: 400, // Set the height of the image
-            ),
+            const SizedBox(height: 25),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: TextField(
                 controller: nameOnCardController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Name on card',
                 ),
               ),
@@ -49,7 +74,7 @@ class PaymentMethodPage extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: TextField(
                 controller: cardNumberController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Card number',
                 ),
                 keyboardType: TextInputType.number,
@@ -62,17 +87,17 @@ class PaymentMethodPage extends StatelessWidget {
                   Expanded(
                     child: TextField(
                       controller: expDateController,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         labelText: 'Exp date (MM/YY)',
                       ),
                       keyboardType: TextInputType.number,
                     ),
                   ),
-                  const SizedBox(width: 16),
+                  const SizedBox(width: 30),
                   Expanded(
                     child: TextField(
                       controller: cvvController,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         labelText: 'CVV',
                       ),
                       keyboardType: TextInputType.number,
@@ -82,7 +107,6 @@ class PaymentMethodPage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 40),
-            // Text widget for indicating to select the donation amount
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.0),
               child: Align(
@@ -93,28 +117,58 @@ class PaymentMethodPage extends StatelessWidget {
                 ),
               ),
             ),
-            // Dropdown button for selecting the donation amount
+            const SizedBox(height: 25),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: DropdownButton<int>(
-                value: selectedAmount,
-                onChanged: (int? newValue) {
-                  if (newValue != null) {
-                    // Update the selected donation amount
-                    selectedAmount = newValue;
-                  }
-                },
-                items: donationAmounts.map((int amount) {
-                  return DropdownMenuItem<int>(
-                    value: amount,
-                    child:
-                        Text('$amount Dirhams'), // Display amount with Dirhams
+              child: Wrap(
+                spacing: 8.0, // Horizontal space between buttons
+                runSpacing: 8.0, // Vertical space between lines
+                children: donationAmounts.map((amount) {
+                  return ElevatedButton(
+                    onPressed: () => selectAmount(amount),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: selectedAmount == amount
+                          ? Colors.deepPurple
+                          : Colors.grey[200], // Highlight the selected button
+                      shape: RoundedRectangleBorder(
+                        borderRadius:
+                            BorderRadius.circular(30.0), // Rounded corners
+                      ),
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 20.0, vertical: 10.0), // Button padding
+                    ),
+                    child: Text(
+                      '$amount Dirhams',
+                      style: TextStyle(
+                        color: selectedAmount == amount
+                            ? Colors.white
+                            : Colors.black,
+                      ),
+                    ),
                   );
                 }).toList(),
               ),
             ),
-            const SizedBox(height: 30),
-            // Donate button
+            Padding(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 16.0, vertical: 20.0),
+                child: TextField(
+                  controller: customDonationController,
+                  decoration: InputDecoration(
+                    labelText: 'Enter custom amount',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                    ),
+                    contentPadding: EdgeInsets.symmetric(
+                        vertical: 10.0,
+                        horizontal: 20), // Reduced padding for smaller height
+                  ),
+                  keyboardType: TextInputType.number,
+                  onChanged: (value) => setCustomAmount(value),
+                  style: TextStyle(
+                      height: 1.0), // Adjusts the line height if necessary
+                )),
+            const SizedBox(height: 25),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: ElevatedButton(
@@ -123,18 +177,21 @@ class PaymentMethodPage extends StatelessWidget {
                 },
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.white,
-                  backgroundColor: Colors.blue, // Text color
-                  elevation: 5, // Elevation
+                  backgroundColor: Colors.deepPurple, // Button background color
+                  elevation: 5, // Button elevation
                   shape: RoundedRectangleBorder(
                     borderRadius:
-                        BorderRadius.circular(200), // Increased border radius
+                        BorderRadius.circular(200), // Button border radius
                   ),
                   padding: const EdgeInsets.symmetric(
-                      vertical: 20, horizontal: 30), // Increased padding
+                      vertical: 10, horizontal: 35), // Button padding
                 ),
                 child: const Text(
-                  'Donate',
-                  style: TextStyle(fontSize: 20), // Increased font size
+                  'Confirm',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold, // Text style
+                  ),
                 ),
               ),
             ),
