@@ -8,8 +8,7 @@ import 'package:phase_2_implementation/my_cart/my_cart.dart'; // Import the MyCa
 import 'package:firebase_auth/firebase_auth.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({
-    Key? key,
+  const HomeScreen({super.key, 
   });
 
   @override

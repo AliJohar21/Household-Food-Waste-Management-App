@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:phase_2_implementation/categories_screen/categories_screen.dart';
 import 'package:phase_2_implementation/donate_screen/donate_screen.dart';
+import 'package:phase_2_implementation/firebase/firebase_manager.dart';
 
 class ShoppingCartPage extends StatefulWidget {
   const ShoppingCartPage({
@@ -51,11 +52,16 @@ class ShoppingCartPageState extends State<ShoppingCartPage> {
         centerTitle: true,
         actions: const <Widget>[],
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          await FirebaseManager.getUserCartItems();
+        },
+      ),
       body: ListView(
         padding: const EdgeInsets.all(16.0),
         children: <Widget>[
           CartItemWidget(
-            imagePath: 'assets/chicken_icon.png',
+            imagePath: 'assets/chicken-leg.png',
             itemName: 'Chicken',
             itemWeight: '500g',
             itemDate: '13/2/24',
