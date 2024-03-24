@@ -1,41 +1,50 @@
 import 'package:flutter/material.dart';
 
 class PaymentMethodPage extends StatelessWidget {
-  const PaymentMethodPage({super.key});
+  const PaymentMethodPage({Key? key});
 
   @override
   Widget build(BuildContext context) {
+    // Define the list of fixed donation amounts
+    final List<int> donationAmounts = [5, 10, 20, 50, 100];
+
+    // Define the selected donation amount
+    int selectedAmount = donationAmounts[0]; // Default to the first amount
+
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Donate Money'), // Title on the app bar
+        centerTitle: true, // Center the title
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            const Padding(
-              padding: EdgeInsets.all(16.0),
-              child: Image(
-                image: AssetImage('assets/credit_card_icon.png'),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: ElevatedButton(
-                onPressed: () {
-                  // TODO: do something whenever the new card is added
-                },
-                style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30.0),
-                  ),
-                  side: BorderSide(color: Colors.purple.shade900),
-                  minimumSize: const Size(30, 50),
+            const Stack(
+              children: [
+                Image(
+                  image: AssetImage('assets/credit_card_icon.png'),
+                  width: 400, // Set the width of the image
+                  height: 400, // Set the height of the image
                 ),
-                child: const Text('Add a new card'),
-              ),
+                Positioned(
+                  bottom: 16.0,
+                  right: 16.0,
+                  child: Text(
+                    'MM/YY', // Display the date here
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
             ),
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.0),
               child: TextField(
                 decoration: InputDecoration(
-                  labelText: 'Name of card',
+                  labelText: 'Name on card',
                 ),
               ),
             ),
@@ -72,18 +81,36 @@ class PaymentMethodPage extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(height: 24),
+            const SizedBox(height: 50),
+            // Text widget for indicating to select the donation amount
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.0),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Select amount of donation',
+                  style: TextStyle(fontSize: 18),
+                ),
+              ),
+            ),
+            // Dropdown button for selecting the donation amount
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 50),
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    minimumSize: const Size(double.infinity, 50),
-                    backgroundColor: Colors.deepPurple,
-                    foregroundColor: Colors.white),
-                onPressed: () {
-                  // TODO: do something whenever the donate button is clicked
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: DropdownButton<int>(
+                value: selectedAmount,
+                onChanged: (int? newValue) {
+                  if (newValue != null) {
+                    // Update the selected donation amount
+                    selectedAmount = newValue;
+                  }
                 },
-                child: const Text('Donate \$100'),
+                items: donationAmounts.map((int amount) {
+                  return DropdownMenuItem<int>(
+                    value: amount,
+                    child:
+                        Text('$amount Dirhams'), // Display amount with Dirhams
+                  );
+                }).toList(),
               ),
             ),
           ],

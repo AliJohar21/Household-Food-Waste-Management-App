@@ -5,7 +5,7 @@ import 'package:phase_2_implementation/set_date_screen/set_date_screen.dart';
 
 class ShoppingCartPage extends StatefulWidget {
   const ShoppingCartPage({
-    super.key,
+    Key? key,
   });
 
   @override
@@ -80,9 +80,11 @@ class ShoppingCartPageState extends State<ShoppingCartPage> {
               onPressed: () {
                 // Navigate to CategoriesScreen
                 Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const CategoriesScreen()));
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const CategoriesScreen(),
+                  ),
+                );
               },
               style: TextButton.styleFrom(
                 backgroundColor: Colors.white,
@@ -121,36 +123,15 @@ class ShoppingCartPageState extends State<ShoppingCartPage> {
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(right: 8.0),
-                child: TextButton(
-                  onPressed: () {
-                    // Navigate to CategoriesScreen
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const SetDateScreen()));
-                  },
-                  style: TextButton.styleFrom(
-                    backgroundColor: Colors.white,
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 20.0, vertical: 16.0),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                      side: const BorderSide(color: Colors.purple),
-                    ),
-                  ),
-                  child: const Text(
-                    'Remind me',
-                    style: TextStyle(color: Colors.purple, fontSize: 18),
-                  ),
-                ),
-              ),
               TextButton(
                 onPressed: () {
                   // Navigate to DonateScreen
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => const Donate()));
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const Donate(),
+                    ),
+                  );
                 },
                 style: TextButton.styleFrom(
                   backgroundColor: Colors.white,
