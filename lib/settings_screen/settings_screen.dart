@@ -41,10 +41,8 @@ class SettingsScreen extends StatelessWidget {
                       ),
                       Text(
                         "Settings",
-                        style: Get.theme.textTheme.displaySmall?.copyWith(
-                            fontWeight: FontWeight.w600,
-                            letterSpacing: 4,
-                            height: 2.5),
+                        style: Get.theme.textTheme.displaySmall
+                            ?.copyWith(fontWeight: FontWeight.w600, letterSpacing: 4, height: 2.5),
                       ),
                     ],
                   ),
@@ -64,8 +62,8 @@ class SettingsScreen extends StatelessWidget {
               child: Center(
                 child: Text(
                   "Live Chat",
-                  style: Get.theme.textTheme.displaySmall?.copyWith(
-                      fontWeight: FontWeight.w500, color: Colors.white),
+                  style: Get.theme.textTheme.displaySmall
+                      ?.copyWith(fontWeight: FontWeight.w500, color: Colors.white),
                 ),
               ),
             ),
@@ -82,8 +80,8 @@ class SettingsScreen extends StatelessWidget {
               child: Center(
                 child: Text(
                   "Contact Us",
-                  style: Get.theme.textTheme.displaySmall?.copyWith(
-                      fontWeight: FontWeight.w500, color: Colors.white),
+                  style: Get.theme.textTheme.displaySmall
+                      ?.copyWith(fontWeight: FontWeight.w500, color: Colors.white),
                 ),
               ),
             ),
@@ -92,7 +90,7 @@ class SettingsScreen extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 20),
             child: InkWell(
               onTap: () {
-                Get.to(const LogIn());
+                Get.to(() => const LogIn());
               },
               child: Container(
                 width: Get.width * .75,
@@ -104,8 +102,8 @@ class SettingsScreen extends StatelessWidget {
                 child: Center(
                   child: Text(
                     "Logout",
-                    style: Get.theme.textTheme.displaySmall?.copyWith(
-                        fontWeight: FontWeight.w500, color: Colors.white),
+                    style: Get.theme.textTheme.displaySmall
+                        ?.copyWith(fontWeight: FontWeight.w500, color: Colors.white),
                   ),
                 ),
               ),

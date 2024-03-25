@@ -1,25 +1,34 @@
-import 'package:flutter/src/widgets/icon_data.dart';
+import 'dart:convert';
 
 class FoodCategory {
+  String categoryId;
   String categoryName;
   String categoryImage;
   FoodCategory({
+    required this.categoryId,
     required this.categoryName,
     required this.categoryImage,
   });
 
-  IconData? get icon => null;
-}
+  Map<String, dynamic> toMap() {
+    final result = <String, dynamic>{};
 
-//Fixed Categories
-var foodCategories = [
-  FoodCategory(categoryName: 'Bread', categoryImage: 'assets/bread.png'),
-  FoodCategory(categoryName: 'Cheese', categoryImage: 'assets/cheese.png'),
-  FoodCategory(
-      categoryName: 'Chicken', categoryImage: 'assets/chicken-leg.png'),
-  FoodCategory(categoryName: 'Meat', categoryImage: 'assets/meat 2.png'),
-  FoodCategory(categoryName: 'Fruits', categoryImage: 'assets/fruit.png'),
-  FoodCategory(
-      categoryName: 'Vegtebales', categoryImage: 'assets/vegetable 2.png'),
-  FoodCategory(categoryName: 'Milk', categoryImage: 'assets/milk.png'),
-];
+    result.addAll({'categoryId': categoryId});
+    result.addAll({'categoryName': categoryName});
+    result.addAll({'categoryImage': categoryImage});
+
+    return result;
+  }
+
+  factory FoodCategory.fromMap(Map<String, dynamic> map) {
+    return FoodCategory(
+      categoryId: map['categoryId'] ?? '',
+      categoryName: map['categoryName'] ?? '',
+      categoryImage: map['categoryImage'] ?? '',
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory FoodCategory.fromJson(String source) => FoodCategory.fromMap(json.decode(source));
+}
