@@ -46,7 +46,7 @@ class ShoppingCartPageState extends State<ShoppingCartPage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => DonateFoodPage(
+                      builder: (context) => const DonateFoodPage(
                         itemsInCart: [],
                       ),
                     ),

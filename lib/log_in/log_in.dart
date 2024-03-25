@@ -34,7 +34,8 @@ class _LogInState extends State<LogIn> {
           child: Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/b_g.png'), // Ensure this path is correct
+                image:
+                    AssetImage('assets/b_g.png'), // Ensure this path is correct
                 fit: BoxFit.cover,
               ),
             ),
@@ -47,7 +48,7 @@ class _LogInState extends State<LogIn> {
                   children: <Widget>[
                     const SizedBox(height: 100.0),
                     Image.asset(
-                      'assets/FoodMinder.png', // Ensure this path is correct
+                      'assets/fm.png', // Ensure this path is correct
                       width: 200, // Adjust the width as needed
                       height: 100, // Adjust the height as needed
                     ),
@@ -77,7 +78,9 @@ class _LogInState extends State<LogIn> {
                         border: const OutlineInputBorder(),
                         suffixIcon: IconButton(
                           icon: Icon(
-                            _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
+                            _isPasswordVisible
+                                ? Icons.visibility
+                                : Icons.visibility_off,
                           ),
                           onPressed: () {
                             setState(() {
@@ -98,7 +101,8 @@ class _LogInState extends State<LogIn> {
                     ElevatedButton(
                       onPressed: () async {
                         try {
-                          var loginResult = await FirebaseAuth.instance.signInWithEmailAndPassword(
+                          var loginResult = await FirebaseAuth.instance
+                              .signInWithEmailAndPassword(
                             email: _emailController.text,
                             password: _passwordController.text,
                           );
@@ -122,7 +126,8 @@ class _LogInState extends State<LogIn> {
                       },
                       style: ElevatedButton.styleFrom(
                         foregroundColor: Colors.white,
-                        backgroundColor: const Color.fromRGBO(103, 58, 183, 1), // Adjust as needed
+                        backgroundColor: const Color.fromRGBO(
+                            103, 58, 183, 1), // Adjust as needed
                       ),
                       child: const Text(
                         'Login',
