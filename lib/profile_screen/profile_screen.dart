@@ -136,11 +136,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             ),
             Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
                 child: Container(
-                  decoration: BoxDecoration(
-                      border: Border.all(color: AppColors.mainColor)),
+                  decoration: BoxDecoration(border: Border.all(color: AppColors.mainColor)),
                   child: Padding(
                     padding: const EdgeInsets.all(10),
                     child: ListView.builder(
@@ -162,9 +160,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     Text(
                                       items[index].category,
                                       style: Get.theme.textTheme.labelLarge
-                                          ?.copyWith(
-                                              decoration:
-                                                  TextDecoration.underline),
+                                          ?.copyWith(decoration: TextDecoration.underline),
                                     ),
                                   ],
                                 ),
@@ -174,37 +170,25 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 child: SizedBox(
                                   width: Get.width * .45,
                                   child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Text(items[index].title,
                                           style: Get.theme.textTheme.labelMedium
-                                              ?.copyWith(
-                                                  height: 1.5,
-                                                  color: Colors.black54)),
+                                              ?.copyWith(height: 1.5, color: Colors.black54)),
                                       !items[index].isQuantity
                                           ? Text("${items[index].quantity}",
-                                              style: Get
-                                                  .theme.textTheme.labelMedium
-                                                  ?.copyWith(
-                                                      height: 1.5,
-                                                      color: Colors.black54))
+                                              style: Get.theme.textTheme.labelMedium
+                                                  ?.copyWith(height: 1.5, color: Colors.black54))
                                           : Container(),
                                       Text(items[index].expiryDate,
                                           style: Get.theme.textTheme.labelMedium
-                                              ?.copyWith(
-                                                  height: 1.5,
-                                                  color: Colors.black54)),
+                                              ?.copyWith(height: 1.5, color: Colors.black54)),
                                       Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
+                                        mainAxisAlignment: MainAxisAlignment.end,
                                         children: [
                                           Text(" ${index + 1} ",
-                                              style: Get
-                                                  .theme.textTheme.titleLarge
-                                                  ?.copyWith(
-                                                      fontWeight:
-                                                          FontWeight.bold)),
+                                              style: Get.theme.textTheme.titleLarge
+                                                  ?.copyWith(fontWeight: FontWeight.bold)),
                                         ],
                                       ),
                                     ],
@@ -222,9 +206,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(10),
         child: Container(
-          decoration: BoxDecoration(
-              color: AppColors.mainColor,
-              borderRadius: BorderRadius.circular(50)),
+          decoration: BoxDecoration(color: AppColors.mainColor, borderRadius: BorderRadius.circular(50)),
           child: BottomNavigationBar(
             items: const [
               BottomNavigationBarItem(
@@ -272,7 +254,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               // Get.lazyPut(() => MainController());
               // Get.find<MainController>().currentIndex = index;
               // Get.find<MainController>().update();
-              // Get.to(const HomeScreen());
+              // Get.to(() => const HomeScreen());
             },
           ),
         ),

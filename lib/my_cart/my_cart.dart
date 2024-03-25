@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:phase_2_implementation/categories_screen/categories_screen.dart';
+import 'package:intl/intl.dart';
 import 'package:phase_2_implementation/firebase/firebase_manager.dart';
+import 'package:phase_2_implementation/models/cart_item.dart';
 import 'package:phase_2_implementation/donate_food/donate_food_page.dart';
 
 class ShoppingCartPage extends StatefulWidget {
   const ShoppingCartPage({
-    Key? key,
+    super.key,
   });
 
   @override
@@ -13,35 +14,16 @@ class ShoppingCartPage extends StatefulWidget {
 }
 
 class ShoppingCartPageState extends State<ShoppingCartPage> {
-  int chickenCount = 1;
-  int breadCount = 2;
+  List<CartItem> cartItems = [];
+  @override
+  void initState() {
+    super.initState();
 
-  void incrementChicken() {
-    setState(() {
-      chickenCount++;
-    });
-  }
-
-  void decrementChicken() {
-    setState(() {
-      if (chickenCount > 1) {
-        chickenCount--;
-      }
-    });
-  }
-
-  void incrementBread() {
-    setState(() {
-      breadCount++;
-    });
-  }
-
-  void decrementBread() {
-    setState(() {
-      if (breadCount > 1) {
-        breadCount--;
-      }
-    });
+    FirebaseManager.getUserCartItems().then(
+      (value) => setState(() {
+        cartItems = value;
+      }),
+    );
   }
 
   @override
@@ -50,76 +32,6 @@ class ShoppingCartPageState extends State<ShoppingCartPage> {
       appBar: AppBar(
         title: const Text('My Cart'),
         centerTitle: true,
-        actions: const <Widget>[],
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          await FirebaseManager.getUserCartItems();
-        },
-      ),
-      body: ListView(
-        padding: const EdgeInsets.all(16.0),
-        children: <Widget>[
-          CartItemWidget(
-            imagePath: 'assets/chicken-leg.png',
-            itemName: 'Chicken',
-            itemWeight: '500g',
-            itemDate: '13/2/24',
-            quantity: chickenCount,
-            onIncrement: incrementChicken,
-            onDecrement: decrementChicken,
-          ),
-          const SizedBox(height: 8),
-          CartItemWidget(
-            imagePath: 'assets/bread.png',
-            itemName: 'Bread',
-            itemWeight: '130g',
-            itemDate: '24/2/24',
-            quantity: breadCount,
-            onIncrement: incrementBread,
-            onDecrement: decrementBread,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 16.0),
-            child: TextButton(
-              onPressed: () {
-                // Navigate to CategoriesScreen
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const CategoriesScreen(),
-                  ),
-                );
-              },
-              style: TextButton.styleFrom(
-                backgroundColor: Colors.white,
-                side: const BorderSide(color: Colors.green, width: 3),
-                padding: const EdgeInsets.symmetric(vertical: 12),
-              ),
-              child: const Text(
-                'Add items',
-                style: TextStyle(color: Colors.green),
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 16.0, top: 16.0),
-            child: TextButton(
-              onPressed: () {
-                // Clear all items
-              },
-              style: TextButton.styleFrom(
-                backgroundColor: Colors.white,
-                side: const BorderSide(color: Colors.red, width: 3),
-                padding: const EdgeInsets.symmetric(vertical: 12),
-              ),
-              child: const Text(
-                'Clear all items',
-                style: TextStyle(color: Colors.red),
-              ),
-            ),
-          )
-        ],
       ),
       bottomNavigationBar: BottomAppBar(
         child: Padding(
@@ -135,28 +47,14 @@ class ShoppingCartPageState extends State<ShoppingCartPage> {
                     context,
                     MaterialPageRoute(
                       builder: (context) => DonateFoodPage(
-                        itemsInCart: [
-                          {
-                            'name': 'Chicken',
-                            'weight': '500g',
-                            'quantity': chickenCount,
-                            'expiryDate': '13/2/24'
-                          },
-                          {
-                            'name': 'Bread',
-                            'weight': '130g',
-                            'quantity': breadCount,
-                            'expiryDate': '24/2/24'
-                          },
-                        ],
+                        itemsInCart: [],
                       ),
                     ),
                   );
                 },
                 style: TextButton.styleFrom(
                   backgroundColor: Colors.white,
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 30.0, vertical: 16.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 16.0),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
                     side: const BorderSide(color: Colors.purple),
@@ -171,29 +69,28 @@ class ShoppingCartPageState extends State<ShoppingCartPage> {
           ),
         ),
       ),
+      body: ListView.separated(
+        itemCount: cartItems.length,
+        separatorBuilder: (context, index) => const SizedBox(height: 10),
+        padding: const EdgeInsets.all(16.0),
+        itemBuilder: (context, index) {
+          var item = cartItems[index];
+          return CartItemWidget(
+            item,
+            onQuantityChange: () {
+              setState(() {});
+            },
+          );
+        },
+      ),
     );
   }
 }
 
 class CartItemWidget extends StatelessWidget {
-  final String itemName;
-  final String itemWeight;
-  final String itemDate;
-  final int quantity;
-  final VoidCallback onIncrement;
-  final VoidCallback onDecrement;
-  final String imagePath;
-
-  const CartItemWidget({
-    Key? key,
-    required this.itemName,
-    required this.imagePath,
-    required this.itemWeight,
-    required this.itemDate,
-    required this.quantity,
-    required this.onIncrement,
-    required this.onDecrement,
-  });
+  final CartItem item;
+  final Function() onQuantityChange;
+  const CartItemWidget(this.item, {super.key, required this.onQuantityChange});
 
   @override
   Widget build(BuildContext context) {
@@ -207,25 +104,27 @@ class CartItemWidget extends StatelessWidget {
       child: IntrinsicHeight(
         child: Row(
           children: <Widget>[
-            Image.asset(imagePath, width: 100, height: 100),
+            Image.network(item.category.categoryImage, width: 100, height: 100),
             const SizedBox(width: 8),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Text(
-                  itemName,
+                  item.name,
                   style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
-                Text(itemWeight),
-                Text(itemDate),
+                Text(item.weight.toString()),
+                Text(DateFormat(DateFormat.YEAR_MONTH_DAY).format(item.expiryDate)),
               ],
             ),
             const Spacer(),
             Counter(
-              quantity: quantity,
-              onIncrement: onIncrement,
-              onDecrement: onDecrement,
+              quantity: item.quantity.toInt(),
+              onQuantityChange: (int newQuantity) {
+                item.quantity = newQuantity.toDouble();
+                onQuantityChange();
+              },
             ),
           ],
         ),
@@ -236,14 +135,12 @@ class CartItemWidget extends StatelessWidget {
 
 class Counter extends StatelessWidget {
   final int quantity;
-  final VoidCallback onIncrement;
-  final VoidCallback onDecrement;
+  final Function(int newQuantity) onQuantityChange;
 
   const Counter({
-    Key? key,
+    super.key,
     required this.quantity,
-    required this.onIncrement,
-    required this.onDecrement,
+    required this.onQuantityChange,
   });
 
   @override
@@ -252,12 +149,12 @@ class Counter extends StatelessWidget {
       children: <Widget>[
         IconButton(
           icon: const Icon(Icons.remove),
-          onPressed: onDecrement,
+          onPressed: () => onQuantityChange(quantity - 1),
         ),
         Text(quantity.toString()),
         IconButton(
           icon: const Icon(Icons.add),
-          onPressed: onIncrement,
+          onPressed: () => onQuantityChange(quantity + 1),
         ),
       ],
     );

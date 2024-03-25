@@ -1,5 +1,7 @@
 //item_specifications_page
 import 'package:flutter/material.dart';
+import 'package:phase_2_implementation/firebase/firebase_manager.dart';
+import 'package:phase_2_implementation/models/cart_item.dart';
 import 'package:phase_2_implementation/models/food_category.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
@@ -21,10 +23,12 @@ class FoodItemPage extends StatefulWidget {
 }
 
 class _FoodItemPageState extends State<FoodItemPage> {
+  String barcode = '';
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _weightController = TextEditingController();
   final TextEditingController _quantityController = TextEditingController();
-  String _expiryDate = "Expiry date";
+  final TextEditingController _expiryDateController = TextEditingController();
+  DateTime? _expiryDate;
   bool _weightSelected = false;
   bool _quantitySelected = false;
   DateTime? reminderDateTime;
@@ -43,10 +47,7 @@ class _FoodItemPageState extends State<FoodItemPage> {
         true,
         ScanMode.BARCODE,
       );
-      if (!mounted) return;
-      setState(() {
-        _nameController.text = "Scanned Item Name";
-      });
+      barcode = barcodeScanRes;
     } catch (e) {
       // Handle error
     }
@@ -60,10 +61,8 @@ class _FoodItemPageState extends State<FoodItemPage> {
       lastDate: DateTime(2030, 12, 31), // Latest possible date
     );
     if (picked != null && picked != DateTime.now()) {
-      setState(() {
-        _expiryDate =
-            "${picked.year.toString()}-${picked.month.toString().padLeft(2, '0')}-${picked.day.toString().padLeft(2, '0')}";
-      });
+      _expiryDate = picked;
+      _expiryDateController.text = DateFormat(DateFormat.YEAR_MONTH_DAY).format(_expiryDate!);
     }
   }
 
@@ -76,24 +75,22 @@ class _FoodItemPageState extends State<FoodItemPage> {
     final textRecognizer = GoogleMlKit.vision.textRecognizer();
 
     try {
-      final RecognizedText recognizedText =
-          await textRecognizer.processImage(inputImage);
+      final RecognizedText recognizedText = await textRecognizer.processImage(inputImage);
       String expiryDateText = ""; // Placeholder for extracted expiry date text
 
       // Example logic to find a date in the recognized text
       for (TextBlock block in recognizedText.blocks) {
         final String text = block.text;
         if (RegExp(r'\d{4}-\d{2}-\d{2}').hasMatch(text)) {
-          expiryDateText = text;
+          var match = RegExp(r'\d{4}-\d{2}-\d{2}').firstMatch(text);
+          expiryDateText = text.substring(match!.start, match.end);
           break; // Stop looking once a date is found
         }
       }
-
-      // Update the UI with the found date
-      if (expiryDateText.isNotEmpty) {
-        setState(() {
-          _expiryDate = expiryDateText;
-        });
+      var date = DateTime.tryParse(expiryDateText);
+      if (date != null && date != DateTime.now()) {
+        _expiryDate = date;
+        _expiryDateController.text = DateFormat(DateFormat.YEAR_MONTH_DAY).format(_expiryDate!);
       }
     } finally {
       textRecognizer.close(); // Don't forget to close the recognizer when done
@@ -104,8 +101,7 @@ class _FoodItemPageState extends State<FoodItemPage> {
     // First, let the user pick a date
     final DateTime? pickedDate = await showDatePicker(
       context: context,
-      initialDate:
-          DateTime.now().add(const Duration(days: 1)), // Suggest next day
+      initialDate: DateTime.now().add(const Duration(days: 1)), // Suggest next day
       firstDate: DateTime.now(),
       lastDate: DateTime(2101),
     );
@@ -174,17 +170,18 @@ class _FoodItemPageState extends State<FoodItemPage> {
     }
 
     // Case 4: Check if Expiry Date is today or past
-    if (_expiryDate != "Expiry date") {
-      DateTime selectedDate = DateFormat('yyyy-MM-dd').parse(_expiryDate);
-      DateTime now = DateTime.now();
-      DateTime today = DateTime(now.year, now.month, now.day);
-
-      if (selectedDate.isAtSameMomentAs(today) ||
-          selectedDate.isBefore(today)) {
-        _showExpiryDialog();
-        return false;
-      }
+    if (_expiryDate == null) {
+      return false;
     }
+    //   DateTime selectedDate = DateFormat('yyyy-MM-dd').parse(_expiryDate);
+    //   DateTime now = DateTime.now();
+    //   DateTime today = DateTime(now.year, now.month, now.day);
+
+    //   if (selectedDate.isAtSameMomentAs(today) || selectedDate.isBefore(today)) {
+    //     _showExpiryDialog();
+    //     return false;
+    //   }
+    // }
 
     return true;
   }
@@ -225,8 +222,7 @@ class _FoodItemPageState extends State<FoodItemPage> {
       context: context,
       builder: (context) => AlertDialog(
         title: const Text('Item Expired'),
-        content: const Text(
-            'The item is already expired, would you still like to keep it or donate?'),
+        content: const Text('The item is already expired, would you still like to keep it or donate?'),
         actions: [
           TextButton(
             onPressed: () {
@@ -247,7 +243,19 @@ class _FoodItemPageState extends State<FoodItemPage> {
     );
   }
 
-  void _confirmItem() {
+  void _confirmItem() async {
+    var item = CartItem(
+      category: widget.foodCat,
+      name: _nameController.text,
+      barcode: barcode,
+      quantity: double.tryParse(_quantityController.text) ?? 0,
+      weight: double.tryParse(_weightController.text) ?? 0,
+      expiryDate: _expiryDate!,
+    );
+    await FirebaseManager.addItemToCart(item);
+    Navigator.of(context).pushReplacement(MaterialPageRoute(
+      builder: (context) => const ShoppingCartPage(),
+    ));
     // Code for confirming the item after all validations pass
   }
 
@@ -285,17 +293,15 @@ class _FoodItemPageState extends State<FoodItemPage> {
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment
-              .start, // Aligns children along the main axis (top to bottom in a column)
-          crossAxisAlignment:
-              CrossAxisAlignment.center, // Centers children horizontally.
+          mainAxisAlignment:
+              MainAxisAlignment.start, // Aligns children along the main axis (top to bottom in a column)
+          crossAxisAlignment: CrossAxisAlignment.center, // Centers children horizontally.
           children: <Widget>[
             Text(
               widget.foodCat.categoryName,
               style: const TextStyle(
                 fontSize: 33.0, // Adjust the text size as needed
-                fontWeight: FontWeight
-                    .w900, // Adjust the text weight/thickness as needed
+                fontWeight: FontWeight.w900, // Adjust the text weight/thickness as needed
                 color: Colors.black, // This sets the color of the text
               ),
             ),
@@ -305,11 +311,9 @@ class _FoodItemPageState extends State<FoodItemPage> {
               height: 250, // Adjust the height as needed
               child: Center(
                 // Center the image within the SizedBox
-                child: Image.asset(
-                  widget.foodCat
-                      .categoryImage, // Make sure the asset is added to your pubspec.yaml
-                  fit: BoxFit
-                      .contain, // This will maintain the aspect ratio of the image
+                child: Image.network(
+                  widget.foodCat.categoryImage,
+                  fit: BoxFit.contain, // This will maintain the aspect ratio of the image
                 ),
               ),
             ),
@@ -323,17 +327,12 @@ class _FoodItemPageState extends State<FoodItemPage> {
               ),
               label: const Text(
                 'Scan Barcode',
-                style: TextStyle(
-                    fontSize: 22,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 22, color: Colors.white, fontWeight: FontWeight.bold),
               ),
               onPressed: _scanBarcode,
               style: ElevatedButton.styleFrom(
-                backgroundColor:
-                    Colors.deepPurple, // Use backgroundColor instead of primary
-                foregroundColor:
-                    Colors.white, // Use foregroundColor instead of onPrimary
+                backgroundColor: Colors.deepPurple, // Use backgroundColor instead of primary
+                foregroundColor: Colors.white, // Use foregroundColor instead of onPrimary
                 fixedSize: const Size(260, 50),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(50),
@@ -366,10 +365,7 @@ class _FoodItemPageState extends State<FoodItemPage> {
                   child: CheckboxListTile(
                     title: const Text(
                       "Weight",
-                      style: TextStyle(
-                          fontSize: 18,
-                          color: Colors.black,
-                          fontWeight: FontWeight.w500),
+                      style: TextStyle(fontSize: 18, color: Colors.black, fontWeight: FontWeight.w500),
                     ),
                     value: _weightSelected,
                     onChanged: (bool? newValue) {
@@ -384,10 +380,7 @@ class _FoodItemPageState extends State<FoodItemPage> {
                   child: CheckboxListTile(
                     title: const Text(
                       "Quantity",
-                      style: TextStyle(
-                          fontSize: 18,
-                          color: Colors.black,
-                          fontWeight: FontWeight.w500),
+                      style: TextStyle(fontSize: 18, color: Colors.black, fontWeight: FontWeight.w500),
                     ),
                     value: _quantitySelected,
                     onChanged: (bool? newValue) {
@@ -415,8 +408,7 @@ class _FoodItemPageState extends State<FoodItemPage> {
                               borderRadius: BorderRadius.circular(50.0),
                             ),
                           ),
-                          keyboardType: const TextInputType.numberWithOptions(
-                              decimal: true),
+                          keyboardType: const TextInputType.numberWithOptions(decimal: true),
                         ),
                       ),
                     ),
@@ -446,18 +438,14 @@ class _FoodItemPageState extends State<FoodItemPage> {
               children: [
                 Expanded(
                   child: InkWell(
-                    onTap:
-                        _pickExpiryDate, // Open the date picker when the field is tapped
+                    onTap: _pickExpiryDate, // Open the date picker when the field is tapped
                     child: IgnorePointer(
                       // Prevents the keyboard from showing
                       child: TextField(
-                        controller: TextEditingController(
-                            text:
-                                _expiryDate), // Display the selected expiry date
+                        controller: _expiryDateController, // Display the selected expiry date
                         decoration: InputDecoration(
                           labelText: 'Expiry Date',
-                          hintText:
-                              'Tap to select date', // Provides a hint to the user
+                          hintText: 'Tap to select date', // Provides a hint to the user
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(50.0),
                           ),
@@ -498,9 +486,7 @@ class _FoodItemPageState extends State<FoodItemPage> {
               child: const Text(
                 'Remind Me?',
                 style: TextStyle(
-                    fontSize: 18,
-                    color: Color.fromRGBO(0, 0, 0, 1),
-                    fontWeight: FontWeight.w400),
+                    fontSize: 18, color: Color.fromRGBO(0, 0, 0, 1), fontWeight: FontWeight.w400),
               ),
             ),
 
@@ -532,8 +518,7 @@ class _FoodItemPageState extends State<FoodItemPage> {
                                 color: Color.fromARGB(255, 255, 0, 0),
                                 decoration: TextDecoration.underline,
                               ),
-                              recognizer: TapGestureRecognizer()
-                                ..onTap = _pickReminderDateTime,
+                              recognizer: TapGestureRecognizer()..onTap = _pickReminderDateTime,
                             ),
                           ],
                         ),
@@ -553,7 +538,7 @@ class _FoodItemPageState extends State<FoodItemPage> {
                 }
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color.fromARGB(255, 166, 129, 230),
+                backgroundColor: Theme.of(context).primaryColor,
                 foregroundColor: Colors.white,
                 fixedSize: const Size(200, 25),
                 shape: RoundedRectangleBorder(
