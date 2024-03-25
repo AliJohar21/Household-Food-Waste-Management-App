@@ -20,7 +20,8 @@ class _SignUpState extends State<SignUp> {
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
 
-  bool isEmail(String input) => RegExp(r'\b[\w\.-]+@[\w\.-]+\.\w{2,4}\b').hasMatch(input);
+  bool isEmail(String input) =>
+      RegExp(r'\b[\w\.-]+@[\w\.-]+\.\w{2,4}\b').hasMatch(input);
 
   var errorText = "";
 
@@ -39,7 +40,8 @@ class _SignUpState extends State<SignUp> {
           child: Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/b_g.png'), // Ensure this path is correct
+                image:
+                    AssetImage('assets/b_g.png'), // Ensure this path is correct
                 fit: BoxFit.cover,
               ),
             ),
@@ -55,7 +57,7 @@ class _SignUpState extends State<SignUp> {
                         children: [
                           const SizedBox(height: 115.0),
                           Image.asset(
-                            'assets/FoodMinder.png', // Make sure the path is correct
+                            'assets/fm.png', // Make sure the path is correct
                             width: 200, // Adjust the width as needed
                             height: 100, // Adjust the height as needed
                           ),
@@ -67,10 +69,12 @@ class _SignUpState extends State<SignUp> {
                               fontSize: 16.0,
                             ),
                           ),
-                          const SizedBox(height: 10), // Space above "Sign Up" text
+                          const SizedBox(
+                              height: 10), // Space above "Sign Up" text
                           const Text(
                             "Sign Up",
-                            style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                            style: TextStyle(
+                                fontSize: 30, fontWeight: FontWeight.bold),
                           ),
                           const SizedBox(height: 20), // Additional spacing
                           TextFormField(
@@ -94,7 +98,9 @@ class _SignUpState extends State<SignUp> {
                               border: OutlineInputBorder(),
                             ),
                             validator: (value) {
-                              if (value == null || value.isEmpty || !isEmail(value)) {
+                              if (value == null ||
+                                  value.isEmpty ||
+                                  !isEmail(value)) {
                                 return 'Please enter a valid email';
                               }
                               return null;
@@ -106,14 +112,19 @@ class _SignUpState extends State<SignUp> {
                             obscureText: hidePassword,
                             decoration: InputDecoration(
                               suffixIcon: IconButton(
-                                onPressed: () => setState(() => hidePassword = !hidePassword),
-                                icon: Icon(hidePassword ? Icons.visibility_off : Icons.visibility),
+                                onPressed: () => setState(
+                                    () => hidePassword = !hidePassword),
+                                icon: Icon(hidePassword
+                                    ? Icons.visibility_off
+                                    : Icons.visibility),
                               ),
                               labelText: "Password",
                               border: const OutlineInputBorder(),
                             ),
                             validator: (value) {
-                              if (value == null || value.isEmpty || value.length < 6) {
+                              if (value == null ||
+                                  value.isEmpty ||
+                                  value.length < 6) {
                                 return 'Password must be at least 6 characters long';
                               }
                               return null;
@@ -126,21 +137,24 @@ class _SignUpState extends State<SignUp> {
                               color: Colors.red,
                             ),
                           ),
-                          const SizedBox(height: 10), // Space before the "SIGN UP" button
+                          const SizedBox(
+                              height: 10), // Space before the "SIGN UP" button
                           ElevatedButton(
                             onPressed: () async {
                               try {
                                 if (_formKey.currentState!.validate()) {
                                   ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(content: Text('Processing Data')),
+                                    const SnackBar(
+                                        content: Text('Processing Data')),
                                   );
 
-                                  var singUpResult =
-                                      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+                                  var singUpResult = await FirebaseAuth.instance
+                                      .createUserWithEmailAndPassword(
                                     email: emailController.text,
                                     password: passwordController.text,
                                   );
-                                  await singUpResult.user?.updateDisplayName(nameController.text);
+                                  await singUpResult.user
+                                      ?.updateDisplayName(nameController.text);
 
                                   if (singUpResult.user != null) {
                                     Navigator.pushReplacement(
@@ -171,7 +185,8 @@ class _SignUpState extends State<SignUp> {
                               ),
                             ),
                           ),
-                          const SizedBox(height: 0), // Space after "SIGN UP" button
+                          const SizedBox(
+                              height: 0), // Space after "SIGN UP" button
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -179,7 +194,8 @@ class _SignUpState extends State<SignUp> {
                               TextButton(
                                 onPressed: () => Navigator.pushReplacement(
                                   context,
-                                  MaterialPageRoute(builder: (context) => const LogIn()),
+                                  MaterialPageRoute(
+                                      builder: (context) => const LogIn()),
                                 ),
                                 child: const Text("Login"),
                               ),
