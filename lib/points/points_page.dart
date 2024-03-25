@@ -193,8 +193,8 @@ Widget _buildHistoryInfo() {
   final List<Map<String, dynamic>> historyData = [
     {
       'date': '19 Mar 2024',
-      'action': 'Donated 10 items',
-      'points': 'Earned 60 points',
+      'action': 'Donated 12 items',
+      'points': 'Earned 120 points',
       'color': const Color.fromARGB(
           255, 232, 196, 243), // Adjust the color to match your design
     },
@@ -208,7 +208,7 @@ Widget _buildHistoryInfo() {
     {
       'date': '17 Nov 2023',
       'action': 'Donated 6 items',
-      'points': 'Earned 32 points',
+      'points': 'Earned 94 points',
       'color': const Color.fromARGB(
           255, 242, 238, 195), // Adjust the color to match your design
     },

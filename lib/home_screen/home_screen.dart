@@ -7,6 +7,7 @@ import 'package:phase_2_implementation/donate_screen/donate_screen.dart';
 import 'package:phase_2_implementation/events_page/events_page.dart';
 import 'package:phase_2_implementation/my_cart/my_cart.dart'; // Import the MyCart screen
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:phase_2_implementation/points/points_page.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({
@@ -19,36 +20,39 @@ class HomeScreen extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            Align(
-              alignment: AlignmentDirectional.centerEnd,
-              child: Container(
-                width: 100,
-                decoration: BoxDecoration(
-                  border: Border.all(),
-                  borderRadius: BorderRadius.circular(25),
-                ),
-                margin: const EdgeInsets.only(top: 10, right: 10),
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 4,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Text(
-                      "214",
-                      style: Get.theme.textTheme.titleLarge?.copyWith(color: AppColors.mainColor),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Container(
+                    decoration:
+                        BoxDecoration(border: Border.all(), borderRadius: BorderRadius.circular(25)),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                      child: Row(
+                        children: [
+                          Text(
+                            "214",
+                            style: Get.theme.textTheme.titleLarge?.copyWith(color: AppColors.mainColor),
+                          ),
+                          InkWell(
+                            onTap: () {
+                              Get.to(() => const PointsPage());
+                            },
+                            child: Image.asset(
+                              "assets/money.png",
+                              height: 30,
+                              width: 30,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                    Image.asset(
-                      "assets/money.png",
-                      height: 30,
-                      width: 30,
-                    )
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
-            const SizedBox(height: 15),
             Text(
               "Hi: ${FirebaseAuth.instance.currentUser?.displayName ?? ""}",
               style: const TextStyle(fontSize: 25),
@@ -194,6 +198,24 @@ class HomeScreen extends StatelessWidget {
           ],
         ),
       ),
+      // bottomNavigationBar: BottomNavigationBar(
+      //   items: const <BottomNavigationBarItem>[
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.home),
+      //       label: 'Home',
+      //     ),
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.add),
+      //       label: 'Add',
+      //     ),
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.settings),
+      //       label: 'Settings',
+      //     ),
+      //   ],
+      //   backgroundColor: Colors.deepPurple,
+      //   selectedItemColor: Colors.white,
+      // ),
     );
   }
 }

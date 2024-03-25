@@ -280,11 +280,12 @@ class _FoodItemPageState extends State<FoodItemPage> {
               child: Image.asset('assets/cart.png', width: 44, height: 44),
             ),
             onPressed: () {
-              // Navigate to cart page
-              //Navigator.push(
-              //context,
-              //MaterialPageRoute(builder: (context) => cart_page()),
-              //);
+              //Navigate to cart page
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const ShoppingCartPage()),
+              );
             },
           ),
         ],
