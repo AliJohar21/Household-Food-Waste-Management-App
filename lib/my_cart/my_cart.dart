@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:phase_2_implementation/categories_screen/categories_screen.dart';
-import 'package:phase_2_implementation/donate_screen/donate_screen.dart';
 import 'package:phase_2_implementation/firebase/firebase_manager.dart';
+import 'package:phase_2_implementation/donate_food/donate_food_page.dart';
 
 class ShoppingCartPage extends StatefulWidget {
   const ShoppingCartPage({
@@ -134,7 +134,22 @@ class ShoppingCartPageState extends State<ShoppingCartPage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const Donate(),
+                      builder: (context) => DonateFoodPage(
+                        itemsInCart: [
+                          {
+                            'name': 'Chicken',
+                            'weight': '500g',
+                            'quantity': chickenCount,
+                            'expiryDate': '13/2/24'
+                          },
+                          {
+                            'name': 'Bread',
+                            'weight': '130g',
+                            'quantity': breadCount,
+                            'expiryDate': '24/2/24'
+                          },
+                        ],
+                      ),
                     ),
                   );
                 },
