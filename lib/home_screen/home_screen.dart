@@ -8,7 +8,8 @@ import 'package:phase_2_implementation/my_cart/my_cart.dart'; // Import the MyCa
 import 'package:firebase_auth/firebase_auth.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key, 
+  const HomeScreen({
+    super.key,
   });
 
   @override
@@ -48,12 +49,10 @@ class HomeScreen extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(height: 20),
             Text(
               "Hi: ${FirebaseAuth.instance.currentUser?.displayName ?? ""}",
               style: const TextStyle(fontSize: 25),
             ),
-            const SizedBox(height: 10),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Row(

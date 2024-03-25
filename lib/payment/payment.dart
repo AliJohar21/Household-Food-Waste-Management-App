@@ -40,7 +40,7 @@ class PaymentMethodPage extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: TextField(
                 controller: nameOnCardController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Name on card',
                 ),
               ),
@@ -49,7 +49,7 @@ class PaymentMethodPage extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: TextField(
                 controller: cardNumberController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Card number',
                 ),
                 keyboardType: TextInputType.number,
@@ -62,7 +62,7 @@ class PaymentMethodPage extends StatelessWidget {
                   Expanded(
                     child: TextField(
                       controller: expDateController,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         labelText: 'Exp date (MM/YY)',
                       ),
                       keyboardType: TextInputType.number,
@@ -72,7 +72,7 @@ class PaymentMethodPage extends StatelessWidget {
                   Expanded(
                     child: TextField(
                       controller: cvvController,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         labelText: 'CVV',
                       ),
                       keyboardType: TextInputType.number,
