@@ -54,7 +54,8 @@ class ShoppingCartPageState extends State<ShoppingCartPage> {
                 },
                 style: TextButton.styleFrom(
                   backgroundColor: Colors.white,
-                  padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 16.0),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 30.0, vertical: 16.0),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
                     side: const BorderSide(color: Colors.purple),
@@ -95,7 +96,7 @@ class CartItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(6),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(15),
@@ -115,7 +116,8 @@ class CartItemWidget extends StatelessWidget {
                   style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
                 Text(item.weight.toString()),
-                Text(DateFormat(DateFormat.YEAR_MONTH_DAY).format(item.expiryDate)),
+                Text(DateFormat(DateFormat.YEAR_MONTH_DAY)
+                    .format(item.expiryDate)),
               ],
             ),
             const Spacer(),

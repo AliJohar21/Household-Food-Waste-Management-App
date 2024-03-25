@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class EventsPage extends StatelessWidget {
-  const EventsPage({super.key});
+  const EventsPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,13 +15,11 @@ class EventsPage extends StatelessWidget {
         ),
         centerTitle: true,
       ),
-      body: const Center(
+      body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(
+            const Text(
               'View',
               style: TextStyle(
                 color: Color(0xFF8158D3),
@@ -29,7 +27,7 @@ class EventsPage extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            Text(
+            const Text(
               'Events',
               style: TextStyle(
                 color: Color(0xFF8158D3),
@@ -37,36 +35,43 @@ class EventsPage extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(height: 20), // Space between title and icon
-            Icon(
+            const SizedBox(height: 20), // Space between title and icon
+            const Icon(
               Icons.event_available, // The icon you want to display
               size: 50, // The size of the icon
               color: Color(0xFF8158D3), // The color of the icon
             ),
-            SizedBox(height: 25), // Space between icon and the first item
-            EventListItem(
-              title: 'International conference on food 2024',
-              iconData: Icons.location_on,
-            ),
-            SizedBox(height: 10), // Space between items
-            EventListItem(
-              title: 'The Green home',
-              iconData: Icons.location_on,
-            ),
-            SizedBox(height: 10), // Space between items
-            EventListItem(
-              title: 'Food Management Conference',
-              iconData: Icons.location_on,
-            ),
-            SizedBox(height: 10), // Space between items
-            EventListItem(
-              title: 'FoodWise Festival',
-              iconData: Icons.location_on,
-            ),
-            SizedBox(height: 10), // Space between items
-            EventListItem(
-              title: 'Dubai International Food Festival',
-              iconData: Icons.location_on,
+            const SizedBox(height: 25), // Space between icon and the first item
+            Expanded(
+              child: ListView(
+                shrinkWrap: true,
+                children: const [
+                  EventListItem(
+                    title: 'International conference on food 2024',
+                    iconData: Icons.location_on,
+                  ),
+                  SizedBox(height: 10), // Space between items
+                  EventListItem(
+                    title: 'The Green home',
+                    iconData: Icons.location_on,
+                  ),
+                  SizedBox(height: 10), // Space between items
+                  EventListItem(
+                    title: 'Food Management Conference',
+                    iconData: Icons.location_on,
+                  ),
+                  SizedBox(height: 10), // Space between items
+                  EventListItem(
+                    title: 'FoodWise Festival',
+                    iconData: Icons.location_on,
+                  ),
+                  SizedBox(height: 10), // Space between items
+                  EventListItem(
+                    title: 'Dubai International Food Festival',
+                    iconData: Icons.location_on,
+                  ),
+                ],
+              ),
             ),
           ],
         ),
@@ -80,10 +85,10 @@ class EventListItem extends StatelessWidget {
   final IconData iconData;
 
   const EventListItem({
-    super.key,
+    Key? key,
     required this.title,
     required this.iconData,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -99,10 +104,12 @@ class EventListItem extends StatelessWidget {
         children: [
           Icon(iconData, color: const Color(0xFF8158D3)),
           const SizedBox(width: 16), // Spacing between the icon and text
-          Text(
-            title,
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
+          Expanded(
+            child: Text(
+              title,
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
         ],
