@@ -5,14 +5,14 @@ import 'package:url_launcher/url_launcher.dart';
 
 class Donate extends StatelessWidget {
   const Donate({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Home Page'),
+        title: const Text('Donate Page'),
       ),
       body: Stack(
         children: [
@@ -114,36 +114,8 @@ class Donate extends StatelessWidget {
               ],
             ),
           ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 20),
-              child: TextButton(
-                onPressed: () {
-                  _launchMapsUrl();
-                },
-                child: const Text(
-                  'Find Nearest Food Bank',
-                  style: TextStyle(
-                    color: Colors.blue,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ),
-          ),
         ],
       ),
     );
-  }
-
-  void _launchMapsUrl() async {
-    const url = 'https://www.google.com/maps/search/food+bank';
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
   }
 }

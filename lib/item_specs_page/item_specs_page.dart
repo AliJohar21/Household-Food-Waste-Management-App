@@ -7,6 +7,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/gestures.dart';
+import 'package:phase_2_implementation/my_cart/my_cart.dart';
 
 class FoodItemPage extends StatefulWidget {
   final FoodCategory foodCat;
@@ -271,11 +272,12 @@ class _FoodItemPageState extends State<FoodItemPage> {
               child: Image.asset('assets/cart.png', width: 44, height: 44),
             ),
             onPressed: () {
-              // Navigate to cart page
-              //Navigator.push(
-              //context,
-              //MaterialPageRoute(builder: (context) => cart_page()),
-              //);
+              //Navigate to cart page
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const ShoppingCartPage()),
+              );
             },
           ),
         ],

@@ -6,6 +6,7 @@ import 'package:phase_2_implementation/donate_screen/donate_screen.dart';
 import 'package:phase_2_implementation/events_page/events_page.dart';
 import 'package:phase_2_implementation/my_cart/my_cart.dart'; // Import the MyCart screen
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:phase_2_implementation/points/points_page.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({
@@ -37,11 +38,16 @@ class HomeScreen extends StatelessWidget {
                             style: Get.theme.textTheme.titleLarge
                                 ?.copyWith(color: AppColors.mainColor),
                           ),
-                          Image.asset(
-                            "assets/money.png",
-                            height: 30,
-                            width: 30,
-                          )
+                          InkWell(
+                            onTap: () {
+                              Get.to(() => const PointsPage());
+                            },
+                            child: Image.asset(
+                              "assets/money.png",
+                              height: 30,
+                              width: 30,
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -138,7 +144,7 @@ class HomeScreen extends StatelessWidget {
                 children: [
                   Padding(
                     padding: EdgeInsets.only(
-                        top: 60, left: Get.width * .25, right: Get.width * .25),
+                        top: 10, left: Get.width * .25, right: Get.width * .25),
                     child: InkWell(
                       onTap: () {
                         // Navigate to CategoriesScreen
@@ -210,6 +216,24 @@ class HomeScreen extends StatelessWidget {
           ],
         ),
       ),
+      // bottomNavigationBar: BottomNavigationBar(
+      //   items: const <BottomNavigationBarItem>[
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.home),
+      //       label: 'Home',
+      //     ),
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.add),
+      //       label: 'Add',
+      //     ),
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.settings),
+      //       label: 'Settings',
+      //     ),
+      //   ],
+      //   backgroundColor: Colors.deepPurple,
+      //   selectedItemColor: Colors.white,
+      // ),
     );
   }
 }
