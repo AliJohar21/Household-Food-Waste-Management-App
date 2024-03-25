@@ -43,7 +43,7 @@ class Donate extends StatelessWidget {
           Align(
             alignment: Alignment.topCenter,
             child: Container(
-              padding: const EdgeInsets.only(top: 300),
+              padding: const EdgeInsets.only(top: 260),
               child: const Text(
                 'Please select the donation type',
                 style: TextStyle(
@@ -54,7 +54,7 @@ class Donate extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 350),
+            padding: const EdgeInsets.only(top: 300),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -76,7 +76,7 @@ class Donate extends StatelessWidget {
                       borderRadius: BorderRadius.all(Radius.circular(8)),
                     ),
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 35, vertical: 50),
+                        horizontal: 20, vertical: 50),
                     textStyle: const TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
@@ -84,7 +84,7 @@ class Donate extends StatelessWidget {
                     elevation: 4,
                   ),
                 ),
-                const SizedBox(width: 30),
+                const SizedBox(width: 20),
                 ElevatedButton.icon(
                   icon: const Icon(Icons.attach_money,
                       color: Colors.deepPurple, size: 50),
@@ -103,7 +103,7 @@ class Donate extends StatelessWidget {
                       borderRadius: BorderRadius.all(Radius.circular(8)),
                     ),
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 35, vertical: 50),
+                        horizontal: 15, vertical: 50),
                     textStyle: const TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,

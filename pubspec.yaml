@@ -55,6 +55,7 @@ dependencies:
   flutter_credit_card: ^4.0.1
   firebase_database: 
   firebase_storage:
+  cloud_firestore: ^4.15.9
   firebase_core: ^2.17.0
   firebase_auth: ^4.17.9
   google_mlkit_text_recognition: ^0.11.0
@@ -137,7 +138,8 @@ flutter:
 
   #ahmed
     - assets/credit_card_icon.png
-    - assets/chicken_icon.png
+
+
   #reem
     - assets/Picsart_24-03-19_00-23-24-161.png
     - assets/Picsart_24-03-19_01-27-05-307.png

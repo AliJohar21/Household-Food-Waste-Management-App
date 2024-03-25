@@ -10,7 +10,7 @@ import 'package:phase_2_implementation/points/points_page.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({
-    Key? key,
+    super.key,
   });
 
   @override
@@ -55,12 +55,10 @@ class HomeScreen extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(height: 20),
             Text(
               "Hi: ${FirebaseAuth.instance.currentUser?.displayName ?? ""}",
               style: const TextStyle(fontSize: 25),
             ),
-            const SizedBox(height: 10),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Row(

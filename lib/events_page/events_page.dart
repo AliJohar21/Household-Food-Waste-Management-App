@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 class EventsPage extends StatelessWidget {
   const EventsPage({super.key});
 
@@ -38,13 +37,13 @@ class EventsPage extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(height: 24), // Space between title and icon
+            SizedBox(height: 20), // Space between title and icon
             Icon(
               Icons.event_available, // The icon you want to display
               size: 50, // The size of the icon
               color: Color(0xFF8158D3), // The color of the icon
             ),
-            SizedBox(height: 32), // Space between icon and the first item
+            SizedBox(height: 25), // Space between icon and the first item
             EventListItem(
               title: 'International conference on food 2024',
               iconData: Icons.location_on,
