@@ -28,19 +28,20 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
-  flutter:
-    sdk: flutter
-  #ameera
-  flutter_barcode_scanner: ^2.0.0  
-  provider: ^6.1.2
-  http: ^1.2.1
-  camera: ^0.10.5+9
-  image_picker: ^1.0.7
-  material_design_icons_flutter: ^7.0.7296
-  google_fonts: ^6.2.1
-  google_ml_kit: ^0.16.3
-  dotted_line: ^3.2.2
-  intl_phone_number_input: ^0.7.0+2
+    flutter:
+        sdk: flutter
+
+    #ameera
+    flutter_barcode_scanner: ^2.0.0
+    provider: ^6.1.2
+    http: ^1.2.1
+    camera: ^0.10.5+9
+    image_picker: ^1.0.7
+    material_design_icons_flutter: ^7.0.7296
+    google_fonts: ^6.2.1
+    google_ml_kit: ^0.16.3
+    dotted_line: ^3.2.2
+    intl_phone_number_input: ^0.7.0+2
 
     # The following adds the Cupertino Icons font to your application.
     # Use with the CupertinoIcons class for iOS style icons.

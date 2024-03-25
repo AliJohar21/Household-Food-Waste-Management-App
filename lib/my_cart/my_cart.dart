@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:phase_2_implementation/categories_screen/categories_screen.dart';
 import 'package:phase_2_implementation/firebase/firebase_manager.dart';
 import 'package:phase_2_implementation/models/cart_item.dart';
 import 'package:phase_2_implementation/donate_food/donate_food_page.dart';
@@ -48,20 +47,7 @@ class ShoppingCartPageState extends State<ShoppingCartPage> {
                     context,
                     MaterialPageRoute(
                       builder: (context) => DonateFoodPage(
-                        itemsInCart: [
-                          {
-                            'name': 'Chicken',
-                            'weight': '500g',
-                            'quantity': chickenCount,
-                            'expiryDate': '13/2/24'
-                          },
-                          {
-                            'name': 'Bread',
-                            'weight': '130g',
-                            'quantity': breadCount,
-                            'expiryDate': '24/2/24'
-                          },
-                        ],
+                        itemsInCart: [],
                       ),
                     ),
                   );
