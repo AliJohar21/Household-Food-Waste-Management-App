@@ -15,6 +15,7 @@ class ShoppingCartPage extends StatefulWidget {
 
 class ShoppingCartPageState extends State<ShoppingCartPage> {
   List<CartItem> cartItems = [];
+  
   @override
   void initState() {
     super.initState();
@@ -28,6 +29,7 @@ class ShoppingCartPageState extends State<ShoppingCartPage> {
 
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       appBar: AppBar(
         title: const Text('My Cart'),

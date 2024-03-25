@@ -1,6 +1,6 @@
 //donate food page
 import 'package:flutter/material.dart';
-import 'package:dotted_line/dotted_line.dart';
+//import 'package:dotted_line/dotted_line.dart';
 import 'package:phase_2_implementation/pickup_adress_page/pickup_adress_page.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -69,7 +69,7 @@ class _DonateFoodPageState extends State<DonateFoodPage> {
                             Text('Expiry Date: ${item['expiryDate']}'),
                           ],
                         ),
-                        const DottedLine(),
+                        //const DottedLine(),
                       ],
                     ),
                   );
