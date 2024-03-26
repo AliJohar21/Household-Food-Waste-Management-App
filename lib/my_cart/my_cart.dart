@@ -29,11 +29,9 @@ class ShoppingCartPageState extends State<ShoppingCartPage> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       appBar: AppBar(
         title: const Text('My Cart'),
-        centerTitle: true,
       ),
       bottomNavigationBar: BottomAppBar(
         child: Padding(
@@ -55,17 +53,20 @@ class ShoppingCartPageState extends State<ShoppingCartPage> {
                   );
                 },
                 style: TextButton.styleFrom(
-                  backgroundColor: Colors.white,
+                  backgroundColor: Colors.deepPurple,
                   padding: const EdgeInsets.symmetric(
                       horizontal: 30.0, vertical: 16.0),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
-                    side: const BorderSide(color: Colors.purple),
+                    side: const BorderSide(color: Colors.deepPurple),
                   ),
                 ),
                 child: const Text(
                   'Donate',
-                  style: TextStyle(color: Colors.purple, fontSize: 18),
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
                 ),
               )
             ],
@@ -102,12 +103,12 @@ class CartItemWidget extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(15),
-        border: Border.all(color: Colors.purple, width: 3),
+        border: Border.all(color: Colors.deepPurple, width: 2),
       ),
       child: IntrinsicHeight(
         child: Row(
           children: <Widget>[
-            Image.network(item.category.categoryImage, width: 100, height: 100),
+            Image.network(item.category.categoryImage, width: 80, height: 80),
             const SizedBox(width: 8),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -115,11 +116,22 @@ class CartItemWidget extends StatelessWidget {
               children: <Widget>[
                 Text(
                   item.name,
-                  style: const TextStyle(fontWeight: FontWeight.bold),
+                  style: const TextStyle(fontSize: 20,fontWeight: FontWeight.bold),
                 ),
-                Text(item.weight.toString()),
-                Text(DateFormat(DateFormat.YEAR_MONTH_DAY)
-                    .format(item.expiryDate)),
+                Text(
+                  item.weight.toString(),
+                  style: const TextStyle(
+                    fontSize: 18,
+                  ),
+
+                ),
+                Text(
+                  DateFormat(DateFormat.YEAR_MONTH_DAY)
+                    .format(item.expiryDate),
+                    style: const TextStyle(
+                      fontSize: 18
+                    ),
+                    ),
               ],
             ),
             const Spacer(),

@@ -30,7 +30,7 @@ class Welcome extends StatelessWidget {
             Center(
               child: InkWell(
                 onTap: () {
-                  launchUrl(Uri.parse('https://flutter.dev'));
+                  launchUrl(Uri.parse('https://youtu.be/pX304WMECqM'));
                 },
                 child: Image.asset('assets/HomePage1.png'),
               ), // Replace with your asset image path
@@ -89,24 +89,6 @@ class Welcome extends StatelessWidget {
           ],
         ),
       ),
-      /*bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.add),
-            label: 'Add',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'Settings',
-          ),
-        ],
-        backgroundColor: Colors.deepPurple,
-        selectedItemColor: Colors.white,
-      ),*/
     );
   }
 }
