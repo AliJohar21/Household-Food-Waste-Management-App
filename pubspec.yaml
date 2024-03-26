@@ -104,23 +104,6 @@ flutter:
           fonts:
               - asset: assets/fonts/SourceCodePro-Regular.ttf
 
-        # - family: Verdana
-        #   fonts:
-        #     - asset: assets/fonts/verdana.ttf
-        #     - asset: assets/fonts/verdana-bold.ttf
-        #     - family: Odisseia
-
-        # - family: OdisseiaTest
-        #   fonts:
-        #     - asset: assets/fonts/OdisseiaTest-Regular.otf
-
-        # - family: Avenir
-        #   fonts:
-        #     - asset: assets/fonts/AvenirLTStd-Roman.otf
-
-        # - family: BergenMono
-        #   fonts:
-        #     - asset: assets/fonts/BergenMono-Bold.otf
         # Assuming 400 is the weight for the regular font, no need to specify it as it's default
 
     # The following line ensures that the Material Icons font is
